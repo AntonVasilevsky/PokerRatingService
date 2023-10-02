@@ -1,4 +1,4 @@
-package com.anton.pokerstats.models;
+package com.example.pokerratingservice.Model;
 
 import lombok.Getter;
 
