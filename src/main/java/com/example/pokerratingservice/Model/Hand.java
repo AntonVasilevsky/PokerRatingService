@@ -45,6 +45,17 @@ public class Hand {
     //@JsonBackReference
     @ManyToMany(mappedBy = "handList")
     private List<Player> playerList;
+
+    public void setMaxPlayers(int maxPlayers) {
+        switch (maxPlayers) {
+            case 2 -> this.maxPlayers = MaxPlayers.TWO_MAX;
+            case 6 -> this.maxPlayers = MaxPlayers.SIX_MAX;
+            case 9 -> this.maxPlayers = MaxPlayers.NINE_MAX;
+            case 10 -> this.maxPlayers = MaxPlayers.TEN_MAX;
+            case -1 -> throw new RuntimeException("max players was not specified");
+        }
+    }
+
     @Override
     public String toString() {
         return "Hand{" +

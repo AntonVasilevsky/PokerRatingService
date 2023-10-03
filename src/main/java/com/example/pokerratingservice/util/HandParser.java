@@ -29,7 +29,7 @@ public interface HandParser {
 
     String getPlayerNameFromLine(String line);
 
-    MaxPlayers getMaxPLayersFromLine(String line);
+    int getMaxPLayersFromLine(String line);  // return type?
 
     String getTableNameFromLine(String line);
 
@@ -40,5 +40,5 @@ public interface HandParser {
 
     long getHandIdValueFromLine(String line);
 
-    GameType getGameTypeFromLine(String line);
+    GameType getGameTypeFromLine(String line);  // return type?
 }
