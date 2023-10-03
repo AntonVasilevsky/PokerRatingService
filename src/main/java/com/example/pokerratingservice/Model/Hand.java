@@ -9,15 +9,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "hand")
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Getter
 @Setter
+@AllArgsConstructor
 @Builder
 public class Hand {
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Column(name = "date")
     private LocalDateTime date;
     @Column(name = "table_name")
@@ -42,12 +42,9 @@ public class Hand {
     private String river;
     @Column(name = "summary")
     private String summary;
-    @JsonBackReference
+    //@JsonBackReference
     @ManyToMany(mappedBy = "handList")
-    // @NotFound(action = NotFoundAction.IGNORE)
-
-    public List<Player> playerList;
-
+    private List<Player> playerList;
     @Override
     public String toString() {
         return "Hand{" +
@@ -65,5 +62,9 @@ public class Hand {
                 "\nsummary=" + summary + "; " +
                 "\nplayerList=" + playerList +
                 "\n}";
+    }
+
+    public Hand() {
+
     }
 }
