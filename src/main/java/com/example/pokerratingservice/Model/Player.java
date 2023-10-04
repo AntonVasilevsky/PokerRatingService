@@ -1,8 +1,10 @@
 package com.example.pokerratingservice.Model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 

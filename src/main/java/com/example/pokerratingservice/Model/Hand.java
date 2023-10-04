@@ -1,6 +1,5 @@
 package com.example.pokerratingservice.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 

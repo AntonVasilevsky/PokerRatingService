@@ -10,3 +10,5 @@ logging.level.org.hibernate.SQL=DEBUG
 
 spring.jpa.properties.hibernate.globally_quoted_identifiers=true
 spring.mvc.hiddenmethod.filter.enabled=true
+
+path.to.file=

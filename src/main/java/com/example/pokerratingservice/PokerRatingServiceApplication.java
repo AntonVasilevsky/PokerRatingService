@@ -3,8 +3,10 @@ package com.example.pokerratingservice;
 import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.MaxPlayers;
 import com.example.pokerratingservice.Model.Player;
+import com.example.pokerratingservice.Service.DatabaseHandler;
 import com.example.pokerratingservice.Service.HandService;
 import com.example.pokerratingservice.Service.PlayerService;
+import com.example.pokerratingservice.util.PokerStarsHandParser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -15,7 +17,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import static com.example.pokerratingservice.Model.GameType.NL;
 
@@ -25,6 +28,10 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
 
     private final PlayerService playerService;
     private final HandService handService;
+    private final PokerStarsHandParser pokerStarsHandParser;
+    private final DatabaseHandler databaseHandler;
+
+    private static String path = "C:\\java\\projects\\pokerstats\\threehands.txt";
     private final Logger logger = LoggerFactory.getLogger(PokerRatingServiceApplication.class);
 
     public static void main(String[] args) {
@@ -32,37 +39,60 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     }
 
     @Override
-    @Transactional
+
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
-        Hand hand = buildTestHand();
-        Player player1 = buildTestPlayer("P1");
-        Player player2 = buildTestPlayer("P2");
-
-        player1.setHandList(List.of(hand));
-        player2.setHandList(List.of(hand));
-
-        handService.saveOne(hand);
-
-        playerService.saveOne(player1);
-        playerService.saveOne(player2);
+        pokerStarsHandParser.readFile(path);
+        HashSet<Hand> handHashSet = pokerStarsHandParser.getHandHashSet();
+        HashSet<Player> playerHashSet = pokerStarsHandParser.getPlayerHashSet();
+        logger.info("PRINTING SETS");
+        handHashSet.forEach(hand -> System.out.println(hand.getId()));
+        playerHashSet.forEach(player -> System.out.println(player.getId()));
+        databaseHandler.saveEntities(playerHashSet, handHashSet);
 
 
         logger.debug("DONE");
     }
+   /* @Override
+
+    public void run(String... args) throws Exception {
+        logger.debug("Starting run");
+        Player p1 = buildTestPlayer("P1");
+        Player p2 = buildTestPlayer("P2");
+        Hand h1 = buildTestHand(123456789123L);
+        Hand h2 = buildTestHand(123456789122L);
+        Hand h3 = buildTestHand(123456789121L);
+
+        assignAndSave(p1, h1, handService, playerService);
+        assignAndSave(p1, h2, handService, playerService);
+        assignAndSave(p2, h1, handService, playerService);
+        assignAndSave(p2, h2, handService, playerService);
+
+
+        logger.debug("DONE");
+    }*/
+    @Transactional
+    public void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
+        player.getHandList().add(hand);
+
+        handService.saveOne(hand);
+        playerService.saveOne(player);
+
+    }
     private static Player buildTestPlayer(String name) {
         return Player.builder()
                 .id(name)
+                .handList(new ArrayList<>())
                 .build();
     }
 
-    private static Hand buildTestHand() {
+    private static Hand buildTestHand(long id) {
         String date = "2023/09/06 16:19:57";
         String pattern = "yyyy/MM/dd HH:mm:ss";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
 
         return Hand.builder()
-                .id(245812345678L)
+                .id(id)
                 .tableName("Laodamia IV")
                 .gameType(NL)
                 .stake(2)
@@ -101,6 +131,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
                                    Board [2d Ac Kc Ks 9d]
                                    Seat 1: Sharp(Gosu) (button) (small blind) collected ($19.60)
                                    Seat 6: CharlesMouse (big blind) folded on the River""")
+                .playerList(new ArrayList<>())
                 .build();
     }
 }
