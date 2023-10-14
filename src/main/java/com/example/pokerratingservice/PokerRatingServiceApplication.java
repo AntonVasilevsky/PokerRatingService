@@ -7,7 +7,6 @@ import com.example.pokerratingservice.Service.DatabaseHandler;
 import com.example.pokerratingservice.Service.HandService;
 import com.example.pokerratingservice.Service.PlayerService;
 import com.example.pokerratingservice.util.PokerStarsHandParser;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static com.example.pokerratingservice.Model.GameType.NL;
 
@@ -38,22 +36,25 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
         SpringApplication.run(PokerRatingServiceApplication.class, args);
     }
 
-    @Override
-
+   /* @Override
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
+
         pokerStarsHandParser.readFile(path);
         HashSet<Hand> handHashSet = pokerStarsHandParser.getHandHashSet();
         HashSet<Player> playerHashSet = pokerStarsHandParser.getPlayerHashSet();
+
         logger.info("PRINTING SETS");
+
         handHashSet.forEach(hand -> System.out.println(hand.getId()));
         playerHashSet.forEach(player -> System.out.println(player.getId()));
+
         databaseHandler.saveEntities(playerHashSet, handHashSet);
 
 
         logger.debug("DONE");
-    }
-   /* @Override
+    }*/
+    @Override
 
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
@@ -67,11 +68,12 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
         assignAndSave(p1, h2, handService, playerService);
         assignAndSave(p2, h1, handService, playerService);
         assignAndSave(p2, h2, handService, playerService);
+        assignAndSave(p1, h3, handService, playerService);
+        assignAndSave(p2, h3, handService, playerService);
 
 
         logger.debug("DONE");
-    }*/
-    @Transactional
+    }
     public void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);
 

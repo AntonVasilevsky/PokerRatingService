@@ -29,17 +29,17 @@ public class Hand {
     @Column(name = "max_players")
     @Enumerated(EnumType.STRING)
     private MaxPlayers maxPlayers;
-    @Column(name = "seating")
+    @Column(name = "seating", length = 500)
     private String seating;
-    @Column(name = "hole_cards")
+    @Column(name = "hole_cards", length = 500)
     private String holeCards;
-    @Column(name = "flop")
+    @Column(name = "flop", length = 500)
     private String flop;
-    @Column(name = "turn")
+    @Column(name = "turn", length = 500)
     private String turn;
-    @Column(name = "river")
+    @Column(name = "river", length = 500)
     private String river;
-    @Column(name = "summary")
+    @Column(name = "summary", length = 500)
     private String summary;
     //@JsonBackReference
     @ManyToMany(mappedBy = "handList")

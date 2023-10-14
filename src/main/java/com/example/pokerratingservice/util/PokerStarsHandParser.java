@@ -126,17 +126,22 @@ public class PokerStarsHandParser implements HandParser {
                                 String playerName = getPlayerNameFromLine(line);
                                 logger.debug("Found player in line: {}", playerName);
                                 Optional<Player> playerFromRepositoryById = playerRepository.findById(playerName);
-                                if (playerFromRepositoryById.isEmpty()) {
+                                boolean playerExistsInSet = playerHashSet.stream().anyMatch(p -> p.getId().equals(playerName));
+                                if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
                                     player = new Player();
                                     player.setId(playerName);
                                     player.setHandList(new ArrayList<>());
                                     playerList.add(player);
 
                                     logger.debug("Player {} not found in db. Creating new Player entity", playerName);
-                                } else {
+                                } else if(playerFromRepositoryById.isPresent()) {
                                     player = playerFromRepositoryById.orElseThrow();
                                     playerList.add(player); // TODO check List<Hand> is null?
                                     logger.debug("Player {} already exists in db.", playerName);
+                                }else {
+                                    player = playerHashSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
+                                    playerList.add(player); // TODO check List<Hand> is null?
+                                    logger.debug("Player {} already exists in playerHashSet.", playerName);
                                 }
 
                             }
