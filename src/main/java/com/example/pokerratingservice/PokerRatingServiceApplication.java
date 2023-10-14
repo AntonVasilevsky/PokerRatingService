@@ -35,7 +35,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(PokerRatingServiceApplication.class, args);
     }
-
+  //  some text====================================
    /* @Override
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
