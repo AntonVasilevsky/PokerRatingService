@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "hand")
@@ -30,7 +31,7 @@ public class Hand {
     @Enumerated(EnumType.STRING)
     private MaxPlayers maxPlayers;
     @Column(name = "seating", length = 500)
-    private String seating;
+    private String seating; //TODO int
     @Column(name = "hole_cards", length = 500)
     private String holeCards;
     @Column(name = "flop", length = 500)
@@ -76,5 +77,17 @@ public class Hand {
 
     public Hand() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hand hand)) return false;
+        return Objects.equals(id, hand.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

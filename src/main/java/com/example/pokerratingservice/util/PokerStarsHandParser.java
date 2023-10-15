@@ -6,7 +6,6 @@ import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.Player;
 import com.example.pokerratingservice.Repository.HandRepository;
 import com.example.pokerratingservice.Repository.PlayerRepository;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,24 +14,28 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
-@AllArgsConstructor
 @Getter
 public class PokerStarsHandParser implements HandParser {
     //TODO подумать какие методы наследовать, какие сделать статическими
     private final PlayerRepository playerRepository;            //TODO нарушает ли сингл респо
     private final HandRepository handRepository;
     private static final Logger logger = LoggerFactory.getLogger(PokerStarsHandParser.class);
-    private  HashSet<Player> playerHashSet;
-    private  HashSet<Hand> handHashSet;
+    private final HashSet<Player> playerHashSet;
+    private final HashSet<Hand> handHashSet;
+    private final Map<PokerStarsBlockName, HandParserAssistant> assistantMap;
 
-
+    public PokerStarsHandParser(PlayerRepository playerRepository, HandRepository handRepository, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
+        this.playerRepository = playerRepository;
+        this.handRepository = handRepository;
+        this.playerHashSet = playerHashSet;
+        this.handHashSet = handHashSet;
+        this.assistantMap = assistantList.stream().collect(Collectors.toMap(HandParserAssistant::getPokerStarsBlockNameEnum, x -> x));
+    }
 
     private double getAmountWon(String hand, String bet, String raise, String call, String bigBlind, String smallBlind, String totalPotString) throws IOException {
         boolean won = false;
@@ -85,7 +88,7 @@ public class PokerStarsHandParser implements HandParser {
 
     @Override
 
-    public void readFile(String path) throws IOException {
+    public void readFile(String path) throws IOException { // TODO rename or extract code in methods
         logger.debug("Reading file: {}", path);
         try (FileInputStream fis = new FileInputStream(path);
              InputStreamReader isr = new InputStreamReader(fis);
@@ -109,42 +112,13 @@ public class PokerStarsHandParser implements HandParser {
                     String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                     currentBlock = HandParser.getStringByRegex(line, regex, 1);
                 } else {
-
+                    HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
+                    handParserAssistant.assist();
+                    //TODO сделать одинаковые рагументы метода ассист
+                    //TODO  если не получится можно сделать объект и ему передавать параметры как поля
                     switch (currentBlock) {
                         case "INIT" -> {
-                            if (line.startsWith("PokerStars")) {
-                                hand.setId(getHandIdValueFromLine(line));
-                                hand.setDate(getDateValueFromLine(line));
-                                hand.setGameType(getGameTypeFromLine(line));
-                                hand.setStake(getBigBlindValueFromLine(line));
-                            } else if (line.startsWith("Table")) {
-                                hand.setTableName(getTableNameFromLine(line));
-                                hand.setMaxPlayers(getMaxPLayersFromLine(line));
-                            } else if (line.startsWith("Seat")) {
-                                seatingBuilder.append(line).append("\n");
-
-                                String playerName = getPlayerNameFromLine(line);
-                                logger.debug("Found player in line: {}", playerName);
-                                Optional<Player> playerFromRepositoryById = playerRepository.findById(playerName);
-                                boolean playerExistsInSet = playerHashSet.stream().anyMatch(p -> p.getId().equals(playerName));
-                                if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
-                                    player = new Player();
-                                    player.setId(playerName);
-                                    player.setHandList(new ArrayList<>());
-                                    playerList.add(player);
-
-                                    logger.debug("Player {} not found in db. Creating new Player entity", playerName);
-                                } else if(playerFromRepositoryById.isPresent()) {
-                                    player = playerFromRepositoryById.orElseThrow();
-                                    playerList.add(player); // TODO check List<Hand> is null?
-                                    logger.debug("Player {} already exists in db.", playerName);
-                                }else {
-                                    player = playerHashSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
-                                    playerList.add(player); // TODO check List<Hand> is null?
-                                    logger.debug("Player {} already exists in playerHashSet.", playerName);
-                                }
-
-                            }
+                            extracted(line, hand, seatingBuilder, playerList);
                         }
                         case "HOLE CARDS" -> holeCardsBuilder.append(line).append("\n");
                         case "FLOP" -> flopBuilder.append(line).append("\n");
@@ -205,7 +179,42 @@ public class PokerStarsHandParser implements HandParser {
 
     }
 
+    private void extracted(String line, Hand hand, StringBuilder seatingBuilder, List<Player> playerList) {
+        Player player;
+        if (line.startsWith("PokerStars")) {
+            hand.setId(getHandIdValueFromLine(line));
+            hand.setDate(getDateValueFromLine(line));
+            hand.setGameType(getGameTypeFromLine(line));
+            hand.setStake(getBigBlindValueFromLine(line));
+        } else if (line.startsWith("Table")) {
+            hand.setTableName(getTableNameFromLine(line));
+            hand.setMaxPlayers(getMaxPLayersFromLine(line));
+        } else if (line.startsWith("Seat")) {
+            seatingBuilder.append(line).append("\n");
 
+            String playerName = getPlayerNameFromLine(line);
+            logger.debug("Found player in line: {}", playerName);
+            Optional<Player> playerFromRepositoryById = playerRepository.findById(playerName);
+            boolean playerExistsInSet = playerHashSet.stream().anyMatch(p -> p.getId().equals(playerName));
+            if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
+                player = new Player();
+                player.setId(playerName);
+                player.setHandList(new ArrayList<>());
+                playerList.add(player);
+
+                logger.debug("Player {} not found in db. Creating new Player entity", playerName);
+            } else if(playerFromRepositoryById.isPresent()) {
+                player = playerFromRepositoryById.orElseThrow();
+                playerList.add(player); // TODO check List<Hand> is null?
+                logger.debug("Player {} already exists in db.", playerName);
+            }else {
+                player = playerHashSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
+                playerList.add(player); // TODO check List<Hand> is null?
+                logger.debug("Player {} already exists in playerHashSet.", playerName);
+            }
+
+        }
+    }
 
 
     private static void clearStringBuildersBeforeNewHand(StringBuilder seatingBuilder, StringBuilder holeCardsBuilder, StringBuilder flopBuilder, StringBuilder turnBuilder, StringBuilder riverBuilder, StringBuilder summaryBuilder) {
