@@ -29,13 +29,12 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     private final PokerStarsHandParser pokerStarsHandParser;
     private final DatabaseHandler databaseHandler;
 
-    private static String path = "C:\\java\\projects\\pokerstats\\threehands.txt";
+    private static final String path = "C:\\java\\projects\\PokerRatingService\\threehands.txt";
     private final Logger logger = LoggerFactory.getLogger(PokerRatingServiceApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(PokerRatingServiceApplication.class, args);
     }
-  //  some text====================================
    /* @Override
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
@@ -54,7 +53,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
 
         logger.debug("DONE");
     }*/
-    @Override
+    /*@Override
 
     public void run(String... args) throws Exception {
         logger.debug("Starting run");
@@ -73,6 +72,11 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
 
 
         logger.debug("DONE");
+    }*/
+    @Override
+
+    public void run(String... args) throws Exception {
+        pokerStarsHandParser.parse(path);
     }
     public void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);

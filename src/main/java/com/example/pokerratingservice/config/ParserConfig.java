@@ -1,8 +1,7 @@
 package com.example.pokerratingservice.config;
 
-import com.example.pokerratingservice.util.HandParserAssistant;
-import com.example.pokerratingservice.util.PokerStarsBlockName;
-import com.example.pokerratingservice.util.PokerStarsHandParserAssistant;
+import com.example.pokerratingservice.util.*;
+import com.example.pokerratingservice.util.parserassistants.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,43 +9,49 @@ import org.springframework.context.annotation.Configuration;
 public class ParserConfig {
     @Bean
     public HandParserAssistant getInitPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.INIT);
+        PokerStarsInitHandParserAssistant assistant = new PokerStarsInitHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.INIT);
         return assistant;
     }
 
     @Bean
     public HandParserAssistant getHoleCardsPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.HOLE_CARDS);
+        PokerStarsHoleCardsHandParserAssistant assistant = new PokerStarsHoleCardsHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.HOLE_CARDS);
         return assistant;
     }
 
     @Bean
     public HandParserAssistant getFlopPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.FLOP);
+        PokerStarsFlopHandParserAssistant assistant = new PokerStarsFlopHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.FLOP);
         return assistant;
     }
 
     @Bean
     public HandParserAssistant getTurnPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.TURN);
+        PokerStarsTurnHandParserAssistant assistant = new PokerStarsTurnHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.TURN);
         return assistant;
     }
 
     @Bean
     public HandParserAssistant getRiverPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.RIVER);
+        PokerStarsRiverHandParserAssistant assistant = new PokerStarsRiverHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.RIVER);
+        return assistant;
+    }
+    @Bean
+    public HandParserAssistant getShowDownPokerStarsParserAssistant() {
+        PokerStarsRiverHandParserAssistant assistant = new PokerStarsRiverHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SHOW_DOWN);
         return assistant;
     }
 
     @Bean
     public HandParserAssistant getSummaryPokerStarsParserAssistant() {
-        PokerStarsHandParserAssistant assistant = new PokerStarsHandParserAssistant();
-        assistant.setPokerStarsBlockNameEnum(PokerStarsBlockName.SUMMARY);
+        PokerStarsSummaryHandParserAssistant assistant = new PokerStarsSummaryHandParserAssistant();
+        assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SUMMARY);
         return assistant;
     }
 }
