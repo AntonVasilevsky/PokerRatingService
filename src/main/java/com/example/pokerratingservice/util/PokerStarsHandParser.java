@@ -29,6 +29,7 @@ public class PokerStarsHandParser implements HandParser {
     private final HashSet<Player> playerHashSet;
     private final HashSet<Hand> handHashSet;
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
+    private final List<PokerStarsHandBlockName> handBlockNameslist;
 
     public PokerStarsHandParser(PlayerRepository playerRepository, HandRepository handRepository, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
         this.playerRepository = playerRepository;
@@ -36,6 +37,7 @@ public class PokerStarsHandParser implements HandParser {
         this.playerHashSet = playerHashSet;
         this.handHashSet = handHashSet;
         this.assistantMap = assistantList.stream().collect(Collectors.toMap(HandParserAssistant::getPokerStarsBlockNameEnum, x -> x));
+        this.handBlockNameslist = List.of(PokerStarsHandBlockName.values()); //норм ли такая инициализация?
     }
 
     private double getAmountWon(String hand, String bet, String raise, String call, String bigBlind, String smallBlind, String totalPotString) throws IOException {
@@ -101,19 +103,8 @@ public class PokerStarsHandParser implements HandParser {
             Hand hand = new Hand();
             Player player = new Player();
             Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
-            StringBuilder seatingBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.SEATING, seatingBuilder);
-            StringBuilder holeCardsBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.HOLE_CARDS, holeCardsBuilder);
-            StringBuilder flopBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.FLOP, flopBuilder);
-            StringBuilder turnBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.TURN, turnBuilder);
-            StringBuilder riverBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.RIVER, riverBuilder);
-            StringBuilder summaryBuilder = new StringBuilder();
-            stringBuilderMap.put(PokerStarsHandBlockName.SUMMARY, summaryBuilder);
 
+            handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
 
             while ((line = reader.readLine()) != null) {
 
@@ -173,14 +164,6 @@ public class PokerStarsHandParser implements HandParser {
 
     @Override
     public int getMaxPLayersFromLine(String line) {
-        if (line.contains("2-max")) {
-            return 2;
-        } else if (line.contains("6-max")) {
-            return 6;
-        } else if (line.contains("9-max")) {
-            return 9;
-        } else if (line.contains("10-max"))
-            return 10;
         return -1;
     }
 
