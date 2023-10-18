@@ -4,7 +4,7 @@ import com.example.pokerratingservice.Model.GameType;
 import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.Player;
 import com.example.pokerratingservice.Repository.PlayerRepository;
-import com.example.pokerratingservice.util.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.HandParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

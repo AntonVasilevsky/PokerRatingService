@@ -6,6 +6,8 @@ import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.Player;
 import com.example.pokerratingservice.Repository.HandRepository;
 import com.example.pokerratingservice.Repository.PlayerRepository;
+import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.enums.PokerStarsKeywords;
 import com.example.pokerratingservice.util.parserassistants.HandParserAssistant;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -98,30 +100,42 @@ public class PokerStarsHandParser implements HandParser {
             // TODO добавить проверку есть ли раздача в бд
             String line;
             String currentBlockString = "INIT";
-            PokerStarsHandBlockName currentBlock = PokerStarsHandBlockName.INIT;    //TODO сделать инициализацию методом
+            PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
             List<Player> playerList = new ArrayList<>();
             Hand hand = new Hand();
             Player player = new Player();
             Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
 
             handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
-
+            int counter = 0;
             while ((line = reader.readLine()) != null) {
 
                 if (line.contains("***")) {
                     String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                     currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                } else if (line.isBlank()) {
-                    currentBlockString = "INIT";
-                    currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                    System.out.println("***********************************************");
-                    hand = new Hand();
-                    playerList = new ArrayList<>();
-                    clearStringBuildersBeforeNewHand(stringBuilderMap);
-                } else {
+                } else if (!line.isBlank()) {
+
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
                     handParserAssistant.assist(line, hand, playerList, player, playerRepository, playerHashSet, stringBuilderMap);
+
+                } else {
+
+                    if (counter == 0) {
+                        System.out.println("***********************************************");
+                        setHandFieldsWithBlocks(hand, stringBuilderMap);
+                        System.out.println(hand);
+                        currentBlockString = "INIT";
+                        currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+
+                        hand = new Hand();
+                        playerList = new ArrayList<>();
+                        clearStringBuildersBeforeNewHand(stringBuilderMap);
+
+                    } else if (counter == 2) {
+                        counter = 0;
+                    }
+                    counter++;
 
                 }
 
@@ -131,11 +145,6 @@ public class PokerStarsHandParser implements HandParser {
         logger.info("File read successfully");
 
     }
-
-
-
-
-
 
 
     private PokerStarsHandBlockName getCurrentBlockEnumFromString(String currentBlockString) {
@@ -149,6 +158,26 @@ public class PokerStarsHandParser implements HandParser {
             case "SUMMARY" -> PokerStarsHandBlockName.SUMMARY;
             default -> throw new IllegalStateException("Unexpected value: " + currentBlockString);
         };
+    }
+
+    private void setHandFieldsWithBlocks(Hand hand, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
+        stringBuilderMap.keySet().forEach(key -> {
+                    switch (key) {
+                        case HOLE_CARDS -> hand.setHoleCards(getStringFromStringBuilder(stringBuilderMap, key));
+                        case FLOP -> hand.setFlop(getStringFromStringBuilder(stringBuilderMap, key));
+                        case TURN -> hand.setTurn(getStringFromStringBuilder(stringBuilderMap, key));
+                        case RIVER -> hand.setRiver(getStringFromStringBuilder(stringBuilderMap, key));
+                        case SUMMARY -> hand.setSummary(getStringFromStringBuilder(stringBuilderMap, key));
+
+                    }
+                }
+        );
+
+
+    }
+
+    private static String getStringFromStringBuilder(Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, PokerStarsHandBlockName key) {
+        return stringBuilderMap.get(key).toString();
     }
 
 

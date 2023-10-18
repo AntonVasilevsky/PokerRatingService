@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.util;
+package com.example.pokerratingservice.util.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

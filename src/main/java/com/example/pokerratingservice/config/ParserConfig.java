@@ -1,6 +1,6 @@
 package com.example.pokerratingservice.config;
 
-import com.example.pokerratingservice.util.*;
+import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.parserassistants.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

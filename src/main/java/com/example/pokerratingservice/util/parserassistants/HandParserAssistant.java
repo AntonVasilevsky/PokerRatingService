@@ -3,7 +3,7 @@ package com.example.pokerratingservice.util.parserassistants;
 import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.Player;
 import com.example.pokerratingservice.Repository.PlayerRepository;
-import com.example.pokerratingservice.util.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import lombok.Getter;
 import lombok.Setter;
 
