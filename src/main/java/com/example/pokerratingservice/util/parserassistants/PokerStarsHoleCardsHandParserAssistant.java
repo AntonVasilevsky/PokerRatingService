@@ -12,7 +12,7 @@ import java.util.Set;
 public class PokerStarsHoleCardsHandParserAssistant extends HandParserAssistant{
     @Override
     public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
-        stringBuilderMap.get(PokerStarsHandBlockName.HOLE_CARDS).append(line).append("/n");
+        appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         System.out.println("Assisting in: " + this.getClass().getName());
     }
 }

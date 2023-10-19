@@ -12,7 +12,7 @@ import java.util.Set;
 public class PokerStarsTurnHandParserAssistant extends HandParserAssistant{
     @Override
     public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
-        stringBuilderMap.get(PokerStarsHandBlockName.TURN).append(line).append("/n");
+        appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         System.out.println("Assisting in: " + this.getClass().getName());
     }
 }

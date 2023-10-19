@@ -54,7 +54,6 @@ public class PokerStarsHandParser implements HandParser {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
 
-
             if (line.contains(playerName) && line.contains(bigBlind)) {
                 putMoneyInPot += stakeFromHand;
             }
@@ -73,6 +72,7 @@ public class PokerStarsHandParser implements HandParser {
             }
 
         }
+
         if (won) {
             ammountWon += (totalPotValue - putMoneyInPot);
         } else {
@@ -111,9 +111,11 @@ public class PokerStarsHandParser implements HandParser {
             while ((line = reader.readLine()) != null) {
 
                 if (line.contains("***")) {
+
                     String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                     currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+
                 } else if (!line.isBlank()) {
 
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
@@ -122,7 +124,7 @@ public class PokerStarsHandParser implements HandParser {
                 } else {
 
                     if (counter == 0) {
-                        System.out.println("***********************************************");
+
                         setHandFieldsWithBlocks(hand, stringBuilderMap);
                         System.out.println(hand);
                         currentBlockString = "INIT";
@@ -133,17 +135,17 @@ public class PokerStarsHandParser implements HandParser {
                         clearStringBuildersBeforeNewHand(stringBuilderMap);
 
                     } else if (counter == 2) {
+
                         counter = 0;
                     }
+
                     counter++;
 
                 }
 
             }
         }
-
         logger.info("File read successfully");
-
     }
 
 
@@ -172,8 +174,6 @@ public class PokerStarsHandParser implements HandParser {
                     }
                 }
         );
-
-
     }
 
     private static String getStringFromStringBuilder(Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, PokerStarsHandBlockName key) {
