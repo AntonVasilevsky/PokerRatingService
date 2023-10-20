@@ -107,15 +107,13 @@ public class PokerStarsHandParser implements HandParser {
             Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
 
             handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
-            int counter = 0;
+            int emptyRowCounter = 0;
             while ((line = reader.readLine()) != null) {
 
                 if (line.contains("***")) {
-
                     String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                     currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-
                 } else if (!line.isBlank()) {
 
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
@@ -123,23 +121,28 @@ public class PokerStarsHandParser implements HandParser {
 
                 } else {
 
-                    if (counter == 0) {
+                    if (emptyRowCounter == 0) {
 
                         setHandFieldsWithBlocks(hand, stringBuilderMap);
-                        System.out.println(hand);
                         currentBlockString = "INIT";
                         currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+                        clearStringBuildersBeforeNewHand(stringBuilderMap);
+
+                        emptyRowCounter++;
+                    }
+                    else if(emptyRowCounter < 3) {
+                        emptyRowCounter++;
+                    }
+                         if (emptyRowCounter == 3) {
+
+                        System.out.println(hand);
 
                         hand = new Hand();
                         playerList = new ArrayList<>();
-                        clearStringBuildersBeforeNewHand(stringBuilderMap);
 
-                    } else if (counter == 2) {
-
-                        counter = 0;
+                        emptyRowCounter = 0;
                     }
 
-                    counter++;
 
                 }
 

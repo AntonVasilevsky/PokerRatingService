@@ -17,7 +17,7 @@ public abstract class HandParserAssistant {
     private PokerStarsHandBlockName pokerStarsBlockNameEnum;
     public abstract void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap);
     public void appendLineToStringBuilderFromMap(PokerStarsHandBlockName blockName, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, String line) {
-        stringBuilderMap.get(pokerStarsBlockNameEnum).append(line).append("/n");
+        stringBuilderMap.get(pokerStarsBlockNameEnum).append(line).append("\n");
     }
 }
 

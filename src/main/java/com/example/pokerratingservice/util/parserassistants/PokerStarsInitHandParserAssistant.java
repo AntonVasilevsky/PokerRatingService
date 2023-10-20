@@ -21,7 +21,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
     @Override
     public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
-        System.out.println("Assisting in: " + this.getClass().getName());
+        logger.info("Assisting in: {}", this.getClass().getName());
         if (line.startsWith("PokerStars")) {
             hand.setId(getHandIdValueFromLine(line));
             hand.setDate(getDateValueFromLine(line));
@@ -46,6 +46,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
                 logger.debug("Player {} not found in db. Creating new Player entity", playerName);
             } else if(playerFromRepositoryById.isPresent()) {
+
                 player = playerFromRepositoryById.orElseThrow();
                 playerList.add(player); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in db.", playerName);
