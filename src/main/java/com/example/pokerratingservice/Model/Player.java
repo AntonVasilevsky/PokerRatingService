@@ -20,7 +20,7 @@ public class Player {
     @Id
     @Column(name = "id")
     private String id;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "player_hand",
             joinColumns = @JoinColumn(name="player_id"),

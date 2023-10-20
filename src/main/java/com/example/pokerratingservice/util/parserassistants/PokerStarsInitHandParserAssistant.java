@@ -3,6 +3,7 @@ package com.example.pokerratingservice.util.parserassistants;
 import com.example.pokerratingservice.Model.GameType;
 import com.example.pokerratingservice.Model.Hand;
 import com.example.pokerratingservice.Model.Player;
+import com.example.pokerratingservice.Repository.HandRepository;
 import com.example.pokerratingservice.Repository.PlayerRepository;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.HandParser;
@@ -20,7 +21,7 @@ import java.util.*;
 public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
     @Override
-    public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
+    public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, HandRepository handRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.startsWith("PokerStars")) {
             hand.setId(getHandIdValueFromLine(line));

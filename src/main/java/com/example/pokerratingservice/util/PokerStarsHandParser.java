@@ -117,16 +117,24 @@ public class PokerStarsHandParser implements HandParser {
                 } else if (!line.isBlank()) {
 
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, hand, playerList, player, playerRepository, playerHashSet, stringBuilderMap);
+                    handParserAssistant.assist(line, hand, playerList, player, playerRepository, handRepository, playerHashSet, stringBuilderMap);
 
                 } else {
 
                     if (emptyRowCounter == 0) {
 
-                        setHandFieldsWithBlocks(hand, stringBuilderMap);
+
                         currentBlockString = "INIT";
                         currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                         clearStringBuildersBeforeNewHand(stringBuilderMap);
+
+
+
+                        System.out.println(hand);
+
+
+                        hand = new Hand();
+                        playerList = new ArrayList<>();
 
                         emptyRowCounter++;
                     }
@@ -134,11 +142,6 @@ public class PokerStarsHandParser implements HandParser {
                         emptyRowCounter++;
                     }
                          if (emptyRowCounter == 3) {
-
-                        System.out.println(hand);
-
-                        hand = new Hand();
-                        playerList = new ArrayList<>();
 
                         emptyRowCounter = 0;
                     }
@@ -150,6 +153,8 @@ public class PokerStarsHandParser implements HandParser {
         }
         logger.info("File read successfully");
     }
+
+
 
 
     private PokerStarsHandBlockName getCurrentBlockEnumFromString(String currentBlockString) {
