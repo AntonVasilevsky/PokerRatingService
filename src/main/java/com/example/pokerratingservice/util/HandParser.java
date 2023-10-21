@@ -2,6 +2,7 @@ package com.example.pokerratingservice.util;
 
 import com.example.pokerratingservice.Model.GameType;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
@@ -21,7 +22,8 @@ public interface HandParser {
         matcher.find(); //TODO отловить ошибки
         return matcher.group();
     }
-    void parse(String path) throws IOException;
+    void parse(File file) throws IOException;
+    void readFiles(String path) throws IOException;
 
 
     String getPlayerNameFromLine(String line);

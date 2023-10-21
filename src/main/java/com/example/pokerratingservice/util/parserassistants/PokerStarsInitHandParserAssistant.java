@@ -23,7 +23,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     @Override
     public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, HandRepository handRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
         logger.info("Assisting in: {}", this.getClass().getName());
-        if (line.startsWith("PokerStars")) {
+        if (line.contains("PokerStars")) {
             hand.setId(getHandIdValueFromLine(line));
             hand.setDate(getDateValueFromLine(line));
             hand.setGameType(getGameTypeFromLine(line));

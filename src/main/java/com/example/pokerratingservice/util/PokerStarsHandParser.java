@@ -92,9 +92,9 @@ public class PokerStarsHandParser implements HandParser {
     }
 
     @Override
-    public void parse(String path) throws IOException {
-        logger.debug("Reading file: {}", path);
-        try (FileInputStream fis = new FileInputStream(path);
+    public void parse(File file) throws IOException {
+        logger.debug("Reading file: {}", file);
+        try (FileInputStream fis = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(fis);
              BufferedReader reader = new BufferedReader(isr)) {
             // TODO добавить проверку есть ли раздача в бд
@@ -128,8 +128,6 @@ public class PokerStarsHandParser implements HandParser {
                         currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                         clearStringBuildersBeforeNewHand(stringBuilderMap);
 
-
-
                         System.out.println(hand);
 
 
@@ -154,7 +152,13 @@ public class PokerStarsHandParser implements HandParser {
         logger.info("File read successfully");
     }
 
-
+    @Override
+    public void readFiles(String path) throws IOException {
+        File folder = new File(path);
+        for (File file : Objects.requireNonNull(folder.listFiles())) {
+            parse(file);
+        }
+    }
 
 
     private PokerStarsHandBlockName getCurrentBlockEnumFromString(String currentBlockString) {
@@ -170,19 +174,7 @@ public class PokerStarsHandParser implements HandParser {
         };
     }
 
-    private void setHandFieldsWithBlocks(Hand hand, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
-        stringBuilderMap.keySet().forEach(key -> {
-                    switch (key) {
-                        case HOLE_CARDS -> hand.setHoleCards(getStringFromStringBuilder(stringBuilderMap, key));
-                        case FLOP -> hand.setFlop(getStringFromStringBuilder(stringBuilderMap, key));
-                        case TURN -> hand.setTurn(getStringFromStringBuilder(stringBuilderMap, key));
-                        case RIVER -> hand.setRiver(getStringFromStringBuilder(stringBuilderMap, key));
-                        case SUMMARY -> hand.setSummary(getStringFromStringBuilder(stringBuilderMap, key));
 
-                    }
-                }
-        );
-    }
 
     private static String getStringFromStringBuilder(Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, PokerStarsHandBlockName key) {
         return stringBuilderMap.get(key).toString();

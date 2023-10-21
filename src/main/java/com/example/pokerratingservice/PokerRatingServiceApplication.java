@@ -30,6 +30,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     private final DatabaseHandler databaseHandler;
 
     private static final String path = "C:\\java\\projects\\PokerRatingService\\threehands.txt";
+    private static final String pathFolder = "C:\\Users\\r\\Desktop\\pokerstats\\psHandsTest";
     private final Logger logger = LoggerFactory.getLogger(PokerRatingServiceApplication.class);
 
     public static void main(String[] args) {
@@ -76,7 +77,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     @Override
 
     public void run(String... args) throws Exception {
-        pokerStarsHandParser.parse(path);
+        pokerStarsHandParser.readFiles(pathFolder);
     }
      void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);

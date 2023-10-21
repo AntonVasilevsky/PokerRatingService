@@ -18,7 +18,6 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         System.out.println("Assisting in: " + this.getClass().getName());
         if (line.contains("Seat 6")) { //TODO implement for different table size
 
-
             setHandFieldsWithBlocks(hand, stringBuilderMap);
             assignAndSave(hand, playerList, playerRepository, handRepository);
 
@@ -44,7 +43,6 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
                         case TURN -> hand.setTurn(getStringFromStringBuilder(stringBuilderMap, key));
                         case RIVER -> hand.setRiver(getStringFromStringBuilder(stringBuilderMap, key));
                         case SUMMARY -> hand.setSummary(getStringFromStringBuilder(stringBuilderMap, key));
-
                     }
                 }
         );
