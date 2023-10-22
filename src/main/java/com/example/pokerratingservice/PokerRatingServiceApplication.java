@@ -1,11 +1,10 @@
 package com.example.pokerratingservice;
 
-import com.example.pokerratingservice.Model.Hand;
-import com.example.pokerratingservice.Model.MaxPlayers;
-import com.example.pokerratingservice.Model.Player;
-import com.example.pokerratingservice.Service.DatabaseHandler;
-import com.example.pokerratingservice.Service.HandService;
-import com.example.pokerratingservice.Service.PlayerService;
+import com.example.pokerratingservice.model.Hand;
+import com.example.pokerratingservice.model.MaxPlayer;
+import com.example.pokerratingservice.model.Player;
+import com.example.pokerratingservice.service.HandService;
+import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.PokerStarsHandParser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static com.example.pokerratingservice.Model.GameType.NL;
+import static com.example.pokerratingservice.model.GameType.NL;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -27,7 +26,6 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     private final PlayerService playerService;
     private final HandService handService;
     private final PokerStarsHandParser pokerStarsHandParser;
-    private final DatabaseHandler databaseHandler;
 
     private static final String path = "C:\\java\\projects\\PokerRatingService\\threehands.txt";
     private static final String pathFolder = "C:\\Users\\r\\Desktop\\pokerstats\\psHandsTest";
@@ -104,7 +102,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
                 .gameType(NL)
                 .stake(2)
                 .date(LocalDateTime.parse(date, dtf))
-                .maxPlayers(MaxPlayers.SIX_MAX)
+                .maxPlayer(MaxPlayer.SIX_MAX)
                 .seating("""
                         Seat 1: Sharp(Gosu) ($60 in chips)
                         Seat 6: CharlesMouse ($60 in chips)""")

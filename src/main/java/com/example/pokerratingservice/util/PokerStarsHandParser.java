@@ -1,14 +1,14 @@
 package com.example.pokerratingservice.util;
 
 
-import com.example.pokerratingservice.Model.GameType;
-import com.example.pokerratingservice.Model.Hand;
-import com.example.pokerratingservice.Model.Player;
-import com.example.pokerratingservice.Repository.HandRepository;
-import com.example.pokerratingservice.Repository.PlayerRepository;
+import com.example.pokerratingservice.model.GameType;
+import com.example.pokerratingservice.model.Hand;
+import com.example.pokerratingservice.model.Player;
+import com.example.pokerratingservice.service.HandService;
+import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.enums.PokerStarsKeywords;
-import com.example.pokerratingservice.util.parserassistants.HandParserAssistant;
+import com.example.pokerratingservice.util.parserassistant.HandParserAssistant;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,18 +24,17 @@ import java.util.stream.Collectors;
 @Component
 @Getter
 public class PokerStarsHandParser implements HandParser {
-    //TODO подумать какие методы наследовать, какие сделать статическими
-    private final PlayerRepository playerRepository;
-    private final HandRepository handRepository;
+    private final PlayerService playerService;
+    private final HandService handService;
     private static final Logger logger = LoggerFactory.getLogger(PokerStarsHandParser.class);
     private final HashSet<Player> playerHashSet;
     private final HashSet<Hand> handHashSet;
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
 
-    public PokerStarsHandParser(PlayerRepository playerRepository, HandRepository handRepository, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
-        this.playerRepository = playerRepository;
-        this.handRepository = handRepository;
+    public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
+        this.playerService = playerService;
+        this.handService = handService;
         this.playerHashSet = playerHashSet;
         this.handHashSet = handHashSet;
         this.assistantMap = assistantList.stream().collect(Collectors.toMap(HandParserAssistant::getPokerStarsBlockNameEnum, x -> x));
@@ -117,7 +116,7 @@ public class PokerStarsHandParser implements HandParser {
                 } else if (!line.isBlank()) {
 
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, hand, playerList, player, playerRepository, handRepository, playerHashSet, stringBuilderMap);
+                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService,  playerHashSet, stringBuilderMap);
 
                 } else {
 

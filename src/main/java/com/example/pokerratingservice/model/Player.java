@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.Model;
+package com.example.pokerratingservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

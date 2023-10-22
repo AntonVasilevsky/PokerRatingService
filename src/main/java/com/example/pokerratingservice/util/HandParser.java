@@ -1,6 +1,6 @@
 package com.example.pokerratingservice.util;
 
-import com.example.pokerratingservice.Model.GameType;
+import com.example.pokerratingservice.model.GameType;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public interface HandParser {
     static String getStringByRegex(String line, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
-        matcher.find(); //TODO отловить ошибки
+        matcher.find();
         return matcher.group();
     }
     void parse(File file) throws IOException;
@@ -28,7 +28,7 @@ public interface HandParser {
 
     String getPlayerNameFromLine(String line);
 
-    int getMaxPLayersFromLine(String line);  // return type?
+    int getMaxPLayersFromLine(String line);
 
     String getTableNameFromLine(String line);
 

@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.Model;
+package com.example.pokerratingservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,7 +29,7 @@ public class Hand {
     private double stake;
     @Column(name = "max_players")
     @Enumerated(EnumType.STRING)
-    private MaxPlayers maxPlayers;
+    private MaxPlayer maxPlayer;
     @Column(name = "seating", length = 500)
     private String seating; //TODO int
     @Column(name = "hole_cards", length = 500)
@@ -46,12 +46,12 @@ public class Hand {
     @ManyToMany(mappedBy = "handList")
     private List<Player> playerList;
 
-    public void setMaxPlayers(int maxPlayers) {
+    public void setMaxPlayer(int maxPlayers) {
         switch (maxPlayers) {
-            case 2 -> this.maxPlayers = MaxPlayers.TWO_MAX;
-            case 6 -> this.maxPlayers = MaxPlayers.SIX_MAX;
-            case 9 -> this.maxPlayers = MaxPlayers.NINE_MAX;
-            case 10 -> this.maxPlayers = MaxPlayers.TEN_MAX;
+            case 2 -> this.maxPlayer = MaxPlayer.TWO_MAX;
+            case 6 -> this.maxPlayer = MaxPlayer.SIX_MAX;
+            case 9 -> this.maxPlayer = MaxPlayer.NINE_MAX;
+            case 10 -> this.maxPlayer = MaxPlayer.TEN_MAX;
             case -1 -> throw new RuntimeException("max players was not specified");
         }
     }
@@ -64,7 +64,7 @@ public class Hand {
                 "\ntableName=" + tableName + "; " +
                 "\ngameType=" + gameType + "; " +
                 "\nstake=" + stake + "; " +
-                "\nmaxPlayers=" + maxPlayers + "; " +
+                "\nmaxPlayers=" + maxPlayer + "; " +
                 "\nseating=" + seating + "; " +
                 "\nholeCards=" + holeCards + "; " +
                 "\nflop=" + flop + "; " +

@@ -1,17 +1,19 @@
-package com.example.pokerratingservice.util.parserassistants;
+package com.example.pokerratingservice.util.parserassistant;
 
-import com.example.pokerratingservice.Model.GameType;
-import com.example.pokerratingservice.Model.Hand;
-import com.example.pokerratingservice.Model.Player;
-import com.example.pokerratingservice.Repository.HandRepository;
-import com.example.pokerratingservice.Repository.PlayerRepository;
-import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
+import com.example.pokerratingservice.model.GameType;
+import com.example.pokerratingservice.model.Hand;
+import com.example.pokerratingservice.model.Player;
+import com.example.pokerratingservice.service.HandService;
+import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.HandParser;
+import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -20,8 +22,10 @@ import java.util.*;
 @Getter
 public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
+
+
     @Override
-    public void assist(String line, Hand hand, List<Player> playerList, Player player, PlayerRepository playerRepository, HandRepository handRepository, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
+    public void assist(String line, Hand hand, List<Player> playerList, Player player, HandService handService, PlayerService playerService, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.contains("PokerStars")) {
             hand.setId(getHandIdValueFromLine(line));
@@ -30,28 +34,25 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             hand.setStake(getBigBlindValueFromLine(line));
         } else if (line.startsWith("Table")) {
             hand.setTableName(getTableNameFromLine(line));
-            hand.setMaxPlayers(getMaxPLayersFromLine(line));
+            hand.setMaxPlayer(getMaxPLayersFromLine(line));
         } else if (line.startsWith("Seat")) {
             stringBuilderMap.get(PokerStarsHandBlockName.SEATING)
-            .append(line).append("\n");
-
+                    .append(line).append("\n");
             String playerName = getPlayerNameFromLine(line);
             logger.debug("Found player in line: {}", playerName);
-            Optional<Player> playerFromRepositoryById = playerRepository.findById(playerName);
+            Optional<Player> playerFromRepositoryById = playerService.getById(playerName);
             boolean playerExistsInSet = playerSet.stream().anyMatch(p -> p.getId().equals(playerName));
             if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
                 player = new Player();
                 player.setId(playerName);
                 player.setHandList(new ArrayList<>());
                 playerList.add(player);
-
                 logger.debug("Player {} not found in db. Creating new Player entity", playerName);
-            } else if(playerFromRepositoryById.isPresent()) {
-
+            } else if (playerFromRepositoryById.isPresent()) {
                 player = playerFromRepositoryById.orElseThrow();
                 playerList.add(player); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in db.", playerName);
-            }else {
+            } else {
                 player = playerSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
                 playerList.add(player); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in playerHashSet.", playerName);
@@ -59,39 +60,56 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
         }
     }
-    private long getHandIdValueFromLine(String line) {
+
+    public long getHandIdValueFromLine(String line) {
         String regex = "#(\\d+)";
         String group = HandParser.getStringByRegex(line, regex, 1);
         return Long.parseLong(group);
     }
-    private LocalDateTime getDateValueFromLine(String line) {
+
+    public LocalDateTime getDateValueFromLine(String line) {
         String regex = "\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2}";
         String group = HandParser.getStringByRegex(line, regex);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return LocalDateTime.parse(group, dtf);
     }
-    private double getBigBlindValueFromLine(String string) {
+
+    public double getBigBlindValueFromLine(String string) {
         String regex = "\\$([0-9.]+)";
         String group = HandParser.getStringByRegex(string, regex, 1);
-
         return Double.parseDouble(group);
     }
 
-    private GameType getGameTypeFromLine(String line) {
+    @Override
+    public double getHeroPutMoneyInPotFromLine(String line) {
+        return 0;
+    }
+
+    public GameType getGameTypeFromLine(String line) {
         if (line.contains("Hold'em Limit")) {
             return GameType.FL;
         } else if (line.contains("Hold'em No Limit")) {
             return GameType.NL;
         } else
             return GameType.PLO;
+    }
+
+    @Override
+    public void parse(File file) throws IOException {
 
     }
-    private String getPlayerNameFromLine(String line) {
+
+    @Override
+    public void readFiles(String path) throws IOException {
+
+    }
+
+    public String getPlayerNameFromLine(String line) {
         String regex = "Seat\\s\\d+:\\s(.*?)\\s\\(";
         return HandParser.getStringByRegex(line, regex, 1);
     }
 
-    private int getMaxPLayersFromLine(String line) {
+    public int getMaxPLayersFromLine(String line) {
         if (line.contains("2-max")) {
             return 2;
         } else if (line.contains("6-max")) {
@@ -102,7 +120,8 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             return 10;
         return -1;
     }
-    private String getTableNameFromLine(String line) {
+
+    public String getTableNameFromLine(String line) {
         String regex = "'(.*?)'";
         return HandParser.getStringByRegex(line, regex, 1);
     }

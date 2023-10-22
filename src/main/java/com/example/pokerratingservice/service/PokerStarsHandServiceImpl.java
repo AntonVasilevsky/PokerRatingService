@@ -1,7 +1,7 @@
-package com.example.pokerratingservice.Service;
+package com.example.pokerratingservice.service;
 
-import com.example.pokerratingservice.Model.Hand;
-import com.example.pokerratingservice.Repository.HandRepository;
+import com.example.pokerratingservice.model.Hand;
+import com.example.pokerratingservice.repository.HandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
