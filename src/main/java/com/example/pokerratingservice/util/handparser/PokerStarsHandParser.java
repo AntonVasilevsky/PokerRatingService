@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.util;
+package com.example.pokerratingservice.util.handparser;
 
 
 import com.example.pokerratingservice.model.GameType;
@@ -13,6 +13,7 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -95,6 +96,65 @@ public class PokerStarsHandParser implements HandParser {
         logger.debug("Reading file: {}", file);
         try (FileInputStream fis = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(fis);
+             BufferedReader reader = new BufferedReader(isr)) {
+            // TODO добавить проверку есть ли раздача в бд
+            String line;
+            String currentBlockString = "INIT";
+            PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+            List<Player> playerList = new ArrayList<>();
+            Hand hand = new Hand();
+            Player player = new Player();
+            Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
+
+            handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
+            int emptyRowCounter = 0;
+            while ((line = reader.readLine()) != null) {
+
+                if (line.contains("***")) {
+                    String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
+                    currentBlockString = HandParser.getStringByRegex(line, regex, 1);
+                    currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+                } else if (!line.isBlank()) {
+
+                    HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
+                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService,  playerHashSet, stringBuilderMap);
+
+                } else {
+
+                    if (emptyRowCounter == 0) {
+
+
+                        currentBlockString = "INIT";
+                        currentBlock = getCurrentBlockEnumFromString(currentBlockString);
+                        clearStringBuildersBeforeNewHand(stringBuilderMap);
+
+                        System.out.println(hand);
+
+
+                        hand = new Hand();
+                        playerList = new ArrayList<>();
+
+                        emptyRowCounter++;
+                    }
+                    else if(emptyRowCounter < 3) {
+                        emptyRowCounter++;
+                    }
+                         if (emptyRowCounter == 3) {
+
+                        emptyRowCounter = 0;
+                    }
+
+
+                }
+
+            }
+        }
+        logger.info("File read successfully");
+    }
+    public void parse(MultipartFile file) throws IOException {
+        logger.debug("Reading file: {}", file);
+        try (
+             InputStreamReader isr = new InputStreamReader(file.getInputStream());
              BufferedReader reader = new BufferedReader(isr)) {
             // TODO добавить проверку есть ли раздача в бд
             String line;

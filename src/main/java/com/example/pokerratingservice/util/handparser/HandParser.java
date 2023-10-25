@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.util;
+package com.example.pokerratingservice.util.handparser;
 
 import com.example.pokerratingservice.model.GameType;
 

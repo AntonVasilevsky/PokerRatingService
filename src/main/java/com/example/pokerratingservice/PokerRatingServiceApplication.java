@@ -5,7 +5,7 @@ import com.example.pokerratingservice.model.MaxPlayer;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
-import com.example.pokerratingservice.util.PokerStarsHandParser;
+import com.example.pokerratingservice.util.handparser.PokerStarsHandParser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +75,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     @Override
 
     public void run(String... args) throws Exception {
-        pokerStarsHandParser.readFiles(pathFolder);
+       // pokerStarsHandParser.readFiles(pathFolder);
     }
      void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);
