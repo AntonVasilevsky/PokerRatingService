@@ -5,7 +5,6 @@ import com.example.pokerratingservice.model.MaxPlayer;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
-import com.example.pokerratingservice.util.handparser.PokerStarsHandParser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,6 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
 
     private final PlayerService playerService;
     private final HandService handService;
-    private final PokerStarsHandParser pokerStarsHandParser;
 
     private static final String path = "C:\\java\\projects\\PokerRatingService\\threehands.txt";
     private static final String pathFolder = "C:\\Users\\r\\Desktop\\pokerstats\\psHandsTest";
@@ -34,24 +32,25 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(PokerRatingServiceApplication.class, args);
     }
-   /* @Override
-    public void run(String... args) throws Exception {
-        logger.debug("Starting run");
 
-        pokerStarsHandParser.readFile(path);
-        HashSet<Hand> handHashSet = pokerStarsHandParser.getHandHashSet();
-        HashSet<Player> playerHashSet = pokerStarsHandParser.getPlayerHashSet();
+    /* @Override
+     public void run(String... args) throws Exception {
+         logger.debug("Starting run");
 
-        logger.info("PRINTING SETS");
+         pokerStarsHandParser.readFile(path);
+         HashSet<Hand> handHashSet = pokerStarsHandParser.getHandHashSet();
+         HashSet<Player> playerHashSet = pokerStarsHandParser.getPlayerHashSet();
 
-        handHashSet.forEach(hand -> System.out.println(hand.getId()));
-        playerHashSet.forEach(player -> System.out.println(player.getId()));
+         logger.info("PRINTING SETS");
 
-        databaseHandler.saveEntities(playerHashSet, handHashSet);
+         handHashSet.forEach(hand -> System.out.println(hand.getId()));
+         playerHashSet.forEach(player -> System.out.println(player.getId()));
+
+         databaseHandler.saveEntities(playerHashSet, handHashSet);
 
 
-        logger.debug("DONE");
-    }*/
+         logger.debug("DONE");
+     }*/
     /*@Override
 
     public void run(String... args) throws Exception {
@@ -75,16 +74,18 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
     @Override
 
     public void run(String... args) throws Exception {
-       // pokerStarsHandParser.readFiles(pathFolder);
+        // pokerStarsHandParser.readFiles(pathFolder);
 
     }
-     void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
+
+    void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);
 
         handService.saveOne(hand);
         playerService.saveOne(player);
 
     }
+
     private static Player buildTestPlayer(String name) {
         return Player.builder()
                 .id(name)
@@ -140,4 +141,5 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
                 .playerList(new ArrayList<>())
                 .build();
     }
+
 }

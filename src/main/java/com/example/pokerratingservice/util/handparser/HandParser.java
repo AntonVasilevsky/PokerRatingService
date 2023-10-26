@@ -1,43 +1,55 @@
 package com.example.pokerratingservice.util.handparser;
 
 import com.example.pokerratingservice.model.GameType;
+import com.example.pokerratingservice.util.enums.PokerSiteName;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-public interface HandParser {
-    static String getStringByRegex(String line, String regex, int matcherGroupIndex) {
+@AllArgsConstructor
+@Getter
+public abstract class HandParser {
+    private PokerSiteName pokerSiteName;
+    public static String getStringByRegex(String line, String regex, int matcherGroupIndex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
         matcher.find();
         return matcher.group(matcherGroupIndex);
     }
 
-    static String getStringByRegex(String line, String regex) {
+    public static String getStringByRegex(String line, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
         matcher.find();
         return matcher.group();
     }
-    void parse(File file) throws IOException;
-    void readFiles(String path) throws IOException;
+
+    abstract void parse(File file) throws IOException;
+    private void parse(BufferedReader reader){
+
+    }
 
 
-    String getPlayerNameFromLine(String line);
 
-    int getMaxPLayersFromLine(String line);
+    abstract void readFiles(String path) throws IOException;
 
-    String getTableNameFromLine(String line);
 
-    LocalDateTime getDateValueFromLine(String line);
+    abstract String getPlayerNameFromLine(String line);
 
-    double getBigBlindValueFromLine(String line);
-    double getHeroPutMoneyInPotFromLine(String line);
+    abstract int getMaxPLayersFromLine(String line);
+    abstract String getTableNameFromLine(String line);
 
-    long getHandIdValueFromLine(String line);
+    abstract LocalDateTime getDateValueFromLine(String line);
 
-    GameType getGameTypeFromLine(String line);  // return type?
+    abstract double getBigBlindValueFromLine(String line);
+    abstract double getHeroPutMoneyInPotFromLine(String line);
+
+    abstract long getHandIdValueFromLine(String line);
+
+    abstract GameType getGameTypeFromLine(String line);  // return type?
 }

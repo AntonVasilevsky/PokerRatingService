@@ -1,6 +1,6 @@
 package com.example.pokerratingservice.controller;
 
-import com.example.pokerratingservice.util.handparser.PokerStarsHandParser;
+import com.example.pokerratingservice.service.UploadService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +16,14 @@ import java.io.IOException;
 @AllArgsConstructor
 public class UploadController {
 
-    PokerStarsHandParser pokerStarsHandParser;
-
+    private UploadService uploadService;
     @PostMapping("")
     public HttpStatus uploadManyHands(@RequestParam("files") MultipartFile[] files) {
         try {
             for (MultipartFile file : files
             ) {
                 if (!file.isEmpty()) {
-                    pokerStarsHandParser.parse(file);
+                    uploadService.process(file);
                 } else return HttpStatus.NOT_FOUND;
             }
         } catch (IOException e) {

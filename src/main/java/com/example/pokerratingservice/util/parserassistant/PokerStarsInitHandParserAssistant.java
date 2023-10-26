@@ -7,7 +7,6 @@ import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.handparser.HandParser;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-@AllArgsConstructor
+
 @Getter
 public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
@@ -80,7 +79,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
         return Double.parseDouble(group);
     }
 
-    @Override
+
     public double getHeroPutMoneyInPotFromLine(String line) {
         return 0;
     }
@@ -94,12 +93,12 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             return GameType.PLO;
     }
 
-    @Override
+
     public void parse(File file) throws IOException {
 
     }
 
-    @Override
+
     public void readFiles(String path) throws IOException {
 
     }
