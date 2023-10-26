@@ -1,7 +1,7 @@
 package com.example.pokerratingservice.controller;
 
 import com.example.pokerratingservice.util.handparser.PokerStarsHandParser;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +13,17 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/upload")
+@AllArgsConstructor
 public class UploadController {
-    @Autowired
+
     PokerStarsHandParser pokerStarsHandParser;
 
     @PostMapping("")
     public HttpStatus uploadManyHands(@RequestParam("files") MultipartFile[] files) {
         try {
-            for (MultipartFile file:files
-                 ) {
-                if(!file.isEmpty()) {
+            for (MultipartFile file : files
+            ) {
+                if (!file.isEmpty()) {
                     pokerStarsHandParser.parse(file);
                 } else return HttpStatus.NOT_FOUND;
             }
@@ -32,3 +33,4 @@ public class UploadController {
         return HttpStatus.ACCEPTED;
     }
 }
+

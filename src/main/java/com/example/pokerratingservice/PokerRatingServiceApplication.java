@@ -76,6 +76,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
 
     public void run(String... args) throws Exception {
        // pokerStarsHandParser.readFiles(pathFolder);
+
     }
      void assignAndSave(Player player, Hand hand, HandService handService, PlayerService playerService) {
         player.getHandList().add(hand);

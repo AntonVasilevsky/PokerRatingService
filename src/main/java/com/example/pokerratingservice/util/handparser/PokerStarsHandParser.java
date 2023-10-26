@@ -6,6 +6,7 @@ import com.example.pokerratingservice.model.Hand;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
+import com.example.pokerratingservice.util.enums.PokerSiteName;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.enums.PokerStarsKeywords;
 import com.example.pokerratingservice.util.parserassistant.HandParserAssistant;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Component
 @Getter
 public class PokerStarsHandParser implements HandParser {
+    private final PokerSiteName pokerSiteName;
     private final PlayerService playerService;
     private final HandService handService;
     private static final Logger logger = LoggerFactory.getLogger(PokerStarsHandParser.class);
@@ -34,13 +36,16 @@ public class PokerStarsHandParser implements HandParser {
     private final List<PokerStarsHandBlockName> handBlockNameslist;
 
     public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
+        this.pokerSiteName = PokerSiteName.POKER_STARS;
         this.playerService = playerService;
         this.handService = handService;
         this.playerHashSet = playerHashSet;
         this.handHashSet = handHashSet;
         this.assistantMap = assistantList.stream().collect(Collectors.toMap(HandParserAssistant::getPokerStarsBlockNameEnum, x -> x));
-        this.handBlockNameslist = List.of(PokerStarsHandBlockName.values()); //норм ли такая инициализация?
+        this.handBlockNameslist = List.of(PokerStarsHandBlockName.values());
     }
+
+
 
     private double getAmountWon(String hand, String bet, String raise, String call, String bigBlind, String smallBlind, String totalPotString) throws IOException {
         boolean won = false;
@@ -70,7 +75,6 @@ public class PokerStarsHandParser implements HandParser {
             if (line.contains(totalPotString)) {
                 totalPotValue += getHeroPutMoneyInPotFromLine(line);
             }
-
         }
 
         if (won) {
@@ -105,58 +109,44 @@ public class PokerStarsHandParser implements HandParser {
             Hand hand = new Hand();
             Player player = new Player();
             Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
-
             handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
             int emptyRowCounter = 0;
             while ((line = reader.readLine()) != null) {
-
                 if (line.contains("***")) {
                     String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                     currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                 } else if (!line.isBlank()) {
-
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService,  playerHashSet, stringBuilderMap);
-
+                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService, playerHashSet, stringBuilderMap);
                 } else {
-
                     if (emptyRowCounter == 0) {
-
-
                         currentBlockString = "INIT";
                         currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                         clearStringBuildersBeforeNewHand(stringBuilderMap);
-
                         System.out.println(hand);
-
-
                         hand = new Hand();
                         playerList = new ArrayList<>();
-
+                        emptyRowCounter++;
+                    } else if (emptyRowCounter < 3) {
                         emptyRowCounter++;
                     }
-                    else if(emptyRowCounter < 3) {
-                        emptyRowCounter++;
-                    }
-                         if (emptyRowCounter == 3) {
-
+                    if (emptyRowCounter == 3) {
                         emptyRowCounter = 0;
                     }
-
-
                 }
-
             }
         }
         logger.info("File read successfully");
     }
+
     public void parse(MultipartFile file) throws IOException {
         logger.debug("Reading file: {}", file);
         try (
-             InputStreamReader isr = new InputStreamReader(file.getInputStream());
-             BufferedReader reader = new BufferedReader(isr)) {
+                InputStreamReader isr = new InputStreamReader(file.getInputStream());
+                BufferedReader reader = new BufferedReader(isr)) {
             // TODO добавить проверку есть ли раздача в бд
+
             String line;
             String currentBlockString = "INIT";
             PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
@@ -174,32 +164,21 @@ public class PokerStarsHandParser implements HandParser {
                     currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                 } else if (!line.isBlank()) {
-
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService,  playerHashSet, stringBuilderMap);
-
+                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService, playerHashSet, stringBuilderMap);
                 } else {
-
                     if (emptyRowCounter == 0) {
-
-
                         currentBlockString = "INIT";
                         currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                         clearStringBuildersBeforeNewHand(stringBuilderMap);
-
                         System.out.println(hand);
-
-
                         hand = new Hand();
                         playerList = new ArrayList<>();
-
+                        emptyRowCounter++;
+                    } else if (emptyRowCounter < 3) {
                         emptyRowCounter++;
                     }
-                    else if(emptyRowCounter < 3) {
-                        emptyRowCounter++;
-                    }
-                         if (emptyRowCounter == 3) {
-
+                    if (emptyRowCounter == 3) {
                         emptyRowCounter = 0;
                     }
 
@@ -232,7 +211,6 @@ public class PokerStarsHandParser implements HandParser {
             default -> throw new IllegalStateException("Unexpected value: " + currentBlockString);
         };
     }
-
 
 
     private static String getStringFromStringBuilder(Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, PokerStarsHandBlockName key) {
