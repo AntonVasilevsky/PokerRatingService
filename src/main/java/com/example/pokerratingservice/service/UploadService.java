@@ -3,7 +3,6 @@ package com.example.pokerratingservice.service;
 import com.example.pokerratingservice.util.SiteDetector;
 import com.example.pokerratingservice.util.enums.PokerSiteName;
 import com.example.pokerratingservice.util.handparser.HandParser;
-import com.example.pokerratingservice.util.handparser.PokerStarsHandParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,18 +15,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.pokerratingservice.util.enums.PokerSiteName.POKER_STARS;
-
 @Service
 
 public class UploadService {
     private final SiteDetector siteDetector;
-    private final Map<PokerSiteName, ? extends HandParser> parserMap;
+    private final Map<PokerSiteName, HandParser> parserMap;
     private static final Logger logger = LoggerFactory.getLogger(UploadService.class);
 
-    public UploadService(List<? extends HandParser> parsers, SiteDetector siteDetector) {
+    public UploadService(List<HandParser> parsers, SiteDetector siteDetector) {
         this.siteDetector = siteDetector;
         parserMap = parsers.stream().collect(Collectors.toMap(HandParser::getPokerSiteName, x -> x));
+
     }
 
     public void process(MultipartFile file) throws IOException {
@@ -39,15 +37,9 @@ public class UploadService {
             reader.mark(1024);
             PokerSiteName pokerSiteName = siteDetector.detectSiteName(reader);
             reader.reset();
-            switch (pokerSiteName){
-                case POKER_STARS -> {
-                    PokerStarsHandParser pokerStarsHandParser = (PokerStarsHandParser) parserMap.get(POKER_STARS);
-                        pokerStarsHandParser.parse(reader);
-                }
-            }
 
-
-
+            HandParser handParser = parserMap.get(pokerSiteName);
+            handParser.parse(reader);
         }
     }
 

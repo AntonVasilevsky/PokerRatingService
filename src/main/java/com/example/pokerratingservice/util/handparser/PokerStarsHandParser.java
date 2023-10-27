@@ -12,7 +12,6 @@ import com.example.pokerratingservice.util.parserassistant.HandParserAssistant;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +35,7 @@ public class PokerStarsHandParser extends HandParser {
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
 
-    public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet, @Lazy List<HandParserAssistant> assistantList) {
+    public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<Player> playerHashSet, HashSet<Hand> handHashSet,  List<HandParserAssistant> assistantList) {
         super(POKER_STARS);
         this.playerService = playerService;
         this.handService = handService;
@@ -233,7 +232,7 @@ public class PokerStarsHandParser extends HandParser {
         }
         logger.info("File read successfully");
     }*/
-
+    @Override
     public void parse(BufferedReader reader) throws IOException {
 
 

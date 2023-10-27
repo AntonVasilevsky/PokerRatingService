@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @AllArgsConstructor
 @Getter
-public abstract class HandParser {
+public abstract class HandParser implements SiteSupporter{
     private PokerSiteName pokerSiteName;
     public static String getStringByRegex(String line, String regex, int matcherGroupIndex) {
         Pattern pattern = Pattern.compile(regex);
@@ -30,9 +30,7 @@ public abstract class HandParser {
     }
 
     abstract void parse(File file) throws IOException;
-    private void parse(BufferedReader reader){
-
-    }
+    public abstract void parse(BufferedReader reader) throws IOException;
 
 
 
