@@ -42,7 +42,6 @@ public class Hand {
     private String river;
     @Column(name = "summary", length = 500)
     private String summary;
-    //@JsonBackReference
     @ManyToMany(mappedBy = "handList")
     private List<Player> playerList;
 

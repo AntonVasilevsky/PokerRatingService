@@ -2,6 +2,7 @@ package com.example.pokerratingservice.config;
 
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.parserassistant.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -53,5 +54,9 @@ public class ParserConfig {
         PokerStarsSummaryHandParserAssistant assistant = new PokerStarsSummaryHandParserAssistant();
         assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SUMMARY);
         return assistant;
+    }
+    @Bean
+    public ModelMapper getModelmapper() {
+        return new ModelMapper();
     }
 }

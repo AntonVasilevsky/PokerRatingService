@@ -1,7 +1,8 @@
 package com.example.pokerratingservice.util.parserassistant;
 
+import com.example.pokerratingservice.dto.HandDto;
+import com.example.pokerratingservice.dto.PlayerDto;
 import com.example.pokerratingservice.model.GameType;
-import com.example.pokerratingservice.model.Hand;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
@@ -19,21 +20,24 @@ import java.util.*;
 
 
 @Getter
+
 public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
 
 
+
+
     @Override
-    public void assist(String line, Hand hand, List<Player> playerList, Player player, HandService handService, PlayerService playerService, Set<Player> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.contains("PokerStars")) {
-            hand.setId(getHandIdValueFromLine(line));
-            hand.setDate(getDateValueFromLine(line));
-            hand.setGameType(getGameTypeFromLine(line));
-            hand.setStake(getBigBlindValueFromLine(line));
+            handDto.setId(getHandIdValueFromLine(line));
+            handDto.setDate(getDateValueFromLine(line));
+            handDto.setGameType(getGameTypeFromLine(line));
+            handDto.setStake(getBigBlindValueFromLine(line));
         } else if (line.startsWith("Table")) {
-            hand.setTableName(getTableNameFromLine(line));
-            hand.setMaxPlayer(getMaxPLayersFromLine(line));
+            handDto.setTableName(getTableNameFromLine(line));
+            handDto.setMaxPlayer(getMaxPLayersFromLine(line));
         } else if (line.startsWith("Seat")) {
             stringBuilderMap.get(PokerStarsHandBlockName.SEATING)
                     .append(line).append("\n");
@@ -42,18 +46,19 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             Optional<Player> playerFromRepositoryById = playerService.getById(playerName);
             boolean playerExistsInSet = playerSet.stream().anyMatch(p -> p.getId().equals(playerName));
             if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
-                player = new Player();
-                player.setId(playerName);
-                player.setHandList(new ArrayList<>());
-                playerList.add(player);
+                playerDto = new PlayerDto();
+                playerDto.setId(playerName);
+                playerDto.setHandDtoList(new ArrayList<>());
+                playerDtoList.add(playerDto);
                 logger.debug("Player {} not found in db. Creating new Player entity", playerName);
             } else if (playerFromRepositoryById.isPresent()) {
-                player = playerFromRepositoryById.orElseThrow();
-                playerList.add(player); // TODO check List<Hand> is null?
+                playerDto = super.getPlayerService().convertPlayerToDto(playerFromRepositoryById.orElseThrow());
+
+                playerDtoList.add(playerDto); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in db.", playerName);
             } else {
-                player = playerSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
-                playerList.add(player); // TODO check List<Hand> is null?
+                playerDto = playerSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
+                playerDtoList.add(playerDto); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in playerHashSet.", playerName);
             }
 
