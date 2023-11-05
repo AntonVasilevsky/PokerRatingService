@@ -32,16 +32,16 @@ public class PokerStarsHandParser extends HandParser {
     private final HandService handService;
     private static final Logger logger = LoggerFactory.getLogger(PokerStarsHandParser.class);
     private final HashSet<PlayerDto> playerDtoHashSet;
-    private final HashSet<Hand> handHashSet;
+    private final HashSet<HandDto> handDtoHashSet;
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
 
-    public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<PlayerDto> playerDtoHashSet, HashSet<Hand> handHashSet, List<HandParserAssistant> assistantList) {
+    public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<PlayerDto> playerDtoHashSet, HashSet<HandDto> handDtoHashSet, List<HandParserAssistant> assistantList) {
         super(POKER_STARS);
         this.playerService = playerService;
         this.handService = handService;
         this.playerDtoHashSet = playerDtoHashSet;
-        this.handHashSet = handHashSet;
+        this.handDtoHashSet = handDtoHashSet;
         this.assistantMap = assistantList.stream().collect(Collectors.toMap(HandParserAssistant::getPokerStarsBlockNameEnum, x -> x));
         this.handBlockNameslist = List.of(PokerStarsHandBlockName.values());
     }
@@ -271,7 +271,7 @@ public class PokerStarsHandParser extends HandParser {
                     clearStringBuildersBeforeNewHand(stringBuilderMap);
                     System.out.println(hand);
                     hand = new Hand();
-                    playerList = new ArrayList<>();
+                    playerDtoList = new ArrayList<>();
                     emptyRowCounter++;
                 } else if (emptyRowCounter < 3) {
                     emptyRowCounter++;

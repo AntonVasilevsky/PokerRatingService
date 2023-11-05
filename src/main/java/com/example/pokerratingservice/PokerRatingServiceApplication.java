@@ -1,7 +1,6 @@
 package com.example.pokerratingservice;
 
 import com.example.pokerratingservice.model.Hand;
-import com.example.pokerratingservice.model.MaxPlayer;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
@@ -104,7 +103,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
                 .gameType(NL)
                 .stake(2)
                 .date(LocalDateTime.parse(date, dtf))
-                .maxPlayer(MaxPlayer.SIX_MAX)
+                .maxPlayer(6)
                 .seating("""
                         Seat 1: Sharp(Gosu) ($60 in chips)
                         Seat 6: CharlesMouse ($60 in chips)""")

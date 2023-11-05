@@ -11,6 +11,7 @@ import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,11 +21,15 @@ import java.util.*;
 
 
 @Getter
-
+@Component
 public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
     private final Logger logger = LoggerFactory.getLogger(PokerStarsInitHandParserAssistant.class);
+    private final PlayerService playerService;
 
-
+    public PokerStarsInitHandParserAssistant(PlayerService playerService, HandService handService) {
+        this.playerService = playerService;
+        super.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.INIT);
+    }
 
 
     @Override
@@ -52,7 +57,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
                 playerDtoList.add(playerDto);
                 logger.debug("Player {} not found in db. Creating new Player entity", playerName);
             } else if (playerFromRepositoryById.isPresent()) {
-                playerDto = super.getPlayerService().convertPlayerToDto(playerFromRepositoryById.orElseThrow());
+                playerDto = playerService.convertPlayerToDto(playerFromRepositoryById.orElseThrow());
 
                 playerDtoList.add(playerDto); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in db.", playerName);

@@ -1,7 +1,6 @@
 package com.example.pokerratingservice.dto;
 
 import com.example.pokerratingservice.model.GameType;
-import com.example.pokerratingservice.model.MaxPlayer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,7 @@ public class HandDto {
     private String tableName;
     private GameType gameType;
     private double stake;
-    private MaxPlayer maxPlayer;
+    private int maxPlayer;
     private String seating; //TODO int
     private String holeCards;
     private String flop;
@@ -25,13 +24,7 @@ public class HandDto {
     private String summary;
 
     public void setMaxPlayer(int maxPlayers) {
-        switch (maxPlayers) {
-            case 2 -> this.maxPlayer = MaxPlayer.TWO_MAX;
-            case 6 -> this.maxPlayer = MaxPlayer.SIX_MAX;
-            case 9 -> this.maxPlayer = MaxPlayer.NINE_MAX;
-            case 10 -> this.maxPlayer = MaxPlayer.TEN_MAX;
-            case -1 -> throw new RuntimeException("max players was not specified");
-        }
+       this.maxPlayer = maxPlayers;
     }
 
     public String toString() {

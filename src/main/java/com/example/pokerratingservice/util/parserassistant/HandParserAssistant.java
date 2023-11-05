@@ -18,6 +18,7 @@ import java.util.Map;
 public abstract class HandParserAssistant  {
     private PokerStarsHandBlockName pokerStarsBlockNameEnum;
     private PlayerService playerService;
+    private HandService handService;
 
     public abstract void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap);
     public void appendLineToStringBuilderFromMap(PokerStarsHandBlockName blockName, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, String line) {

@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ParserConfig {
-    @Bean
+    /*@Bean
     public HandParserAssistant getInitPokerStarsParserAssistant() {
         PokerStarsInitHandParserAssistant assistant = new PokerStarsInitHandParserAssistant();
         assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.INIT);
         return assistant;
-    }
+    }*/
 
     @Bean
     public HandParserAssistant getHoleCardsPokerStarsParserAssistant() {
@@ -49,12 +49,12 @@ public class ParserConfig {
         return assistant;
     }
 
-    @Bean
+    /*@Bean
     public HandParserAssistant getSummaryPokerStarsParserAssistant() {
         PokerStarsSummaryHandParserAssistant assistant = new PokerStarsSummaryHandParserAssistant();
         assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SUMMARY);
         return assistant;
-    }
+    }*/
     @Bean
     public ModelMapper getModelmapper() {
         return new ModelMapper();

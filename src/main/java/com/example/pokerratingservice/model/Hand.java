@@ -28,8 +28,7 @@ public class Hand {
     @Column(name = "stake")
     private double stake;
     @Column(name = "max_players")
-    @Enumerated(EnumType.STRING)
-    private MaxPlayer maxPlayer;
+    private int maxPlayer;
     @Column(name = "seating", length = 500)
     private String seating; //TODO int
     @Column(name = "hole_cards", length = 500)
@@ -42,17 +41,11 @@ public class Hand {
     private String river;
     @Column(name = "summary", length = 500)
     private String summary;
-    @ManyToMany(mappedBy = "handList")
+    @ManyToMany(mappedBy = "handList", cascade = CascadeType.ALL)
     private List<Player> playerList;
 
     public void setMaxPlayer(int maxPlayers) {
-        switch (maxPlayers) {
-            case 2 -> this.maxPlayer = MaxPlayer.TWO_MAX;
-            case 6 -> this.maxPlayer = MaxPlayer.SIX_MAX;
-            case 9 -> this.maxPlayer = MaxPlayer.NINE_MAX;
-            case 10 -> this.maxPlayer = MaxPlayer.TEN_MAX;
-            case -1 -> throw new RuntimeException("max players was not specified");
-        }
+        this.maxPlayer = maxPlayers;
     }
 
     @Override
