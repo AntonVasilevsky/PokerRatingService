@@ -1,0 +1,111 @@
+PokerStars Hand #245812437648:  Hold'em Limit ($2/$4 USD) - 2023/09/06 16:19:57 ET
+Table 'Laodamia IV' 6-max Seat #1 is the button
+Seat 1: Sharp(Gosu) ($60 in chips) 
+Seat 6: CharlesMouse ($60 in chips) 
+Sharp(Gosu): posts small blind $1
+CharlesMouse: posts big blind $2
+*** HOLE CARDS ***
+Dealt to Sharp(Gosu) [As 4s]
+Sharp(Gosu): raises $2 to $4
+CharlesMouse: calls $2
+*** FLOP *** [2d Ac Kc]
+CharlesMouse: bets $2
+Sharp(Gosu): calls $2
+*** TURN *** [2d Ac Kc] [Ks]
+CharlesMouse: bets $4
+Sharp(Gosu): calls $4
+*** RIVER *** [2d Ac Kc Ks] [9d]
+CharlesMouse: checks 
+Sharp(Gosu): bets $4
+CharlesMouse: folds 
+Uncalled bet ($4) returned to Sharp(Gosu)
+Sharp(Gosu) collected $19.60 from pot
+Sharp(Gosu): doesn't show hand 
+*** SUMMARY ***
+Total pot $20 | Rake $0.40 
+Board [2d Ac Kc Ks 9d]
+Seat 1: Sharp(Gosu) (button) (small blind) collected ($19.60)
+Seat 6: CharlesMouse (big blind) folded on the River
+
+
+
+PokerStars Hand #245812451162:  Hold'em Limit ($2/$4 USD) - 2023/09/06 16:20:33 ET
+Table 'Laodamia IV' 6-max Seat #1 is the button
+Seat 1: Sharp(Gosu) ($67.60 in chips) 
+Seat 6: CharlesMouse ($52 in chips) 
+Sharp(Gosu): posts small blind $1
+CharlesMouse: posts big blind $2
+*** HOLE CARDS ***
+Dealt to Sharp(Gosu) [Jd 7c]
+Sharp(Gosu): raises $2 to $4
+CharlesMouse: calls $2
+*** FLOP *** [Qs 9c Kh]
+CharlesMouse: bets $2
+Sharp(Gosu): calls $2
+*** TURN *** [Qs 9c Kh] [Ts]
+CharlesMouse: bets $4
+Sharp(Gosu): calls $4
+*** RIVER *** [Qs 9c Kh Ts] [9h]
+CharlesMouse: bets $4
+Sharp(Gosu): raises $4 to $8
+CharlesMouse: calls $4
+*** SHOW DOWN ***
+Sharp(Gosu): shows [Jd 7c] (a straight, Nine to King)
+CharlesMouse: mucks hand 
+Sharp(Gosu) collected $35.50 from pot
+*** SUMMARY ***
+Total pot $36 | Rake $0.50 
+Board [Qs 9c Kh Ts 9h]
+Seat 1: Sharp(Gosu) (button) (small blind) showed [Jd 7c] and won ($35.50) with a straight, Nine to King
+Seat 6: CharlesMouse (big blind) mucked [4s Td]
+
+
+
+PokerStars Hand #245812448257:  Hold'em Limit ($2/$4 USD) - 2023/09/06 16:20:25 ET
+Table 'Laodamia IV' 6-max Seat #6 is the button
+Seat 1: Sharp(Gosu) ($69.60 in chips) 
+Seat 6: CharlesMouse ($50 in chips) 
+CharlesMouse: posts small blind $1
+Sharp(Gosu): posts big blind $2
+*** HOLE CARDS ***
+Dealt to Sharp(Gosu) [5h Td]
+CharlesMouse: raises $2 to $4
+Sharp(Gosu): folds 
+Uncalled bet ($2) returned to CharlesMouse
+CharlesMouse collected $4 from pot
+*** SUMMARY ***
+Total pot $4 | Rake $0 
+Seat 1: Sharp(Gosu) (big blind) folded before Flop
+Seat 6: CharlesMouse (button) (small blind) collected ($4)
+
+
+
+PokerStars Hand #245812451161:  Hold'em Limit ($2/$4 USD) - 2023/09/06 16:20:33 ET
+Table 'Laodamia IV' 6-max Seat #1 is the button
+Seat 1: Sharp(Gosu) ($67.60 in chips) 
+Seat 6: CharlesMouse ($52 in chips) 
+Sharp(Gosu): posts small blind $1
+CharlesMouse: posts big blind $2
+*** HOLE CARDS ***
+Dealt to Sharp(Gosu) [Jd 7c]
+Sharp(Gosu): raises $2 to $4
+CharlesMouse: calls $2
+*** FLOP *** [Qs 9c Kh]
+CharlesMouse: bets $2
+Sharp(Gosu): calls $2
+*** TURN *** [Qs 9c Kh] [Ts]
+CharlesMouse: bets $4
+Sharp(Gosu): calls $4
+*** RIVER *** [Qs 9c Kh Ts] [9h]
+CharlesMouse: bets $4
+Sharp(Gosu): raises $4 to $8
+CharlesMouse: calls $4
+*** SHOW DOWN ***
+Sharp(Gosu): shows [Jd 7c] (a straight, Nine to King)
+CharlesMouse: mucks hand 
+Sharp(Gosu) collected $35.50 from pot
+*** SUMMARY ***
+Total pot $36 | Rake $0.50 
+Board [Qs 9c Kh Ts 9h]
+Seat 1: Sharp(Gosu) (button) (small blind) showed [Jd 7c] and won ($35.50) with a straight, Nine to King
+Seat 6: CharlesMouse (big blind) mucked [4s Td]
