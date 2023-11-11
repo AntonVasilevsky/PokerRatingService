@@ -4,6 +4,7 @@ import com.example.pokerratingservice.dto.PlayerDto;
 import com.example.pokerratingservice.model.Player;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PlayerService {
@@ -13,4 +14,6 @@ public interface PlayerService {
 
     PlayerDto convertPlayerToDto(Player player);
     Player convertDtoToPLayer(PlayerDto playerDto);
+
+    List<Player> convertAllDtoToPlayer(Map<PlayerDto, Void> playerDtoMapGlobal);
 }

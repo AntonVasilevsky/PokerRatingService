@@ -8,14 +8,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PokerStarsPlayerServiceImpl implements com.example.pokerratingservice.service.PlayerService {
     private final PlayerRepository playerRepository;
+
     private final ModelMapper modelMapper;
 
+    @Override
+    public List<Player> convertAllDtoToPlayer(Map<PlayerDto, Void> playerDtoMapGlobal) {
+        return playerDtoMapGlobal.keySet().stream().map(pDto -> modelMapper.map(pDto, Player.class)).toList();
+    }
 
     @Override
     public void saveOne(Player player) {

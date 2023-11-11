@@ -9,10 +9,8 @@ import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Component
 public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
 
@@ -27,20 +25,29 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
     }
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {
+    public void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> globalHandDtoList, Map<PlayerDto, Void> globalPlayerDtoList) {
+
+    }
+
+    @Override
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerDtoHashSet,
+                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> handDtoListGlobal, Map<PlayerDto, Void> playerDtoMapGlobal, List<Hand> handListGlobal,
+                       Map<Player, Void> playerMapGlobal, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
         stringBuilderMap.get(PokerStarsHandBlockName.SUMMARY).append(line).append("/n");
         System.out.println("Assisting in: " + this.getClass().getName());
         if (line.contains("Seat 6")) { //TODO implement for different table size
 
             setHandDtoFieldsWithBlocks(handDto, stringBuilderMap);
-            List<Player> playerList = playerDtoList.stream().map(playerService::convertDtoToPLayer).toList();
+           /* List<Player> playerList = playerDtoList.stream().map(playerService::convertDtoToPLayer).toList();
 
             playerList.forEach(player -> player.setHandList(new ArrayList<>()));
 
 
             Hand hand = handService.covertDtoToHand(handDto);
             hand.setPlayerList(new ArrayList<>());
-            assignAndSave(hand, playerList, playerService, handService);
+            assignAndSave(hand, playerList, playerService, handService);*/
+
+            assign(handDto, playerDtoList, playerSetAssigned, handSetAssigned, playerService, handService);
 
             System.out.println("Hand processing complete");
 
@@ -54,6 +61,50 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         }
         handService.saveOne(hand);
         playerService.saveAll(playerList);
+    }
+    private static void assign(HandDto handDto, List<PlayerDto> playerDtoList,
+                               Set<Player> playerSetAssigned, Set<Hand> handSetAssigned, PlayerService playerService, HandService handService) {
+    //TODO здесь создавать связи и сохранять в статику
+        // TODO create static sets of players and hands for assigned instances
+
+            Hand hand = handService.covertDtoToHand(handDto);
+        if (!handSetAssigned.contains(hand)) {
+            for (PlayerDto p : playerDtoList
+            ) {
+                Player player = playerService.convertDtoToPLayer(p);
+                if (playerSetAssigned.contains(player)) {
+                    playerSetAssigned.stream().filter(pl -> pl.getId().equals(player.getId())).findFirst().orElseThrow().getHandList().add(hand);
+
+                } else {
+                    player.setHandList(new ArrayList<>());
+                    player.getHandList().add(hand);
+                    playerSetAssigned.add(player);
+                }
+
+            }
+            handSetAssigned.add(hand);  // сохранили связанные объекты в статику
+        }
+
+
+
+    }
+    private static void assignRaw(Hand hand, List<Player> playerList, Map<Player, Void> playerMapGlobal, List<Hand> handListGlobal) {
+        for (Player p : playerList
+        ) {
+            if(!playerMapGlobal.containsKey(p)){
+                p.getHandList().add(hand);
+                playerMapGlobal.put(p, null);
+
+            }else {
+                Player dto = playerMapGlobal.keySet().stream().filter(playerDto -> playerDto.equals(p)).findFirst().orElseThrow();
+                dto.getHandList().add(hand);
+                playerMapGlobal.put(dto, null);
+            }
+            handListGlobal.add(hand);
+        }
+
+
+
     }
 
     private void setHandDtoFieldsWithBlocks(HandDto hand, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap) {

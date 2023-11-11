@@ -7,11 +7,24 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PokerStarsHandServiceImpl implements HandService {
     private final HandRepository handRepository;
     private final ModelMapper modelMapper;
+
+    @Override
+    public List<Hand> convertAllDtoToHand(List<HandDto> handDtoListGlobal) {
+       return handDtoListGlobal.stream().map(hDto -> modelMapper.map(hDto, Hand.class)).toList();
+    }
+
+    @Override
+    public void saveAll(List<Hand> handList) {
+        handRepository.saveAll(handList);
+    }
+
     @Override
     public void saveOne(Hand hand) {
         handRepository.save(hand);
