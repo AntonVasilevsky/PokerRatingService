@@ -34,9 +34,9 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerDtoHashSet,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> handDtoListGlobal, Map<PlayerDto, Void> playerDtoMapGlobal, List<Hand> handListGlobal,
-                       Map<Player, Void> playerMapGlobal, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
+                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
+                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.contains("PokerStars")) {
             handDto.setId(getHandIdValueFromLine(line));

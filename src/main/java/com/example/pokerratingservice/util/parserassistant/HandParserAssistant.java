@@ -23,15 +23,16 @@ public abstract class HandParserAssistant  {
     private PlayerService playerService;
     private HandService handService;
 
-    public abstract void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> globalHandDtoList, Map<PlayerDto, Void> globalPlayerDtoList);
+    public abstract void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService,
+                                HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> globalHandDtoList,
+                                Map<PlayerDto, Void> globalPlayerDtoList);
     public void appendLineToStringBuilderFromMap(PokerStarsHandBlockName blockName, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, String line) {
         stringBuilderMap.get(blockName).append(line).append("\n");
     }
 
 
     public abstract void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
-                                HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> handDtoListGlobal,
-                                Map<PlayerDto, Void> playerDtoMapGlobal, List<Hand> handListGlobal, Map<Player, Void> playerMapGlobal,
+                                HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
                                 Set<Player> playerSetAssigned, Set<Hand> handSetAssigned);
 }
 

@@ -30,9 +30,9 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
     }
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerDtoHashSet,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> handDtoListGlobal, Map<PlayerDto, Void> playerDtoMapGlobal, List<Hand> handListGlobal,
-                       Map<Player, Void> playerMapGlobal, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
+                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
+                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
         stringBuilderMap.get(PokerStarsHandBlockName.SUMMARY).append(line).append("/n");
         System.out.println("Assisting in: " + this.getClass().getName());
         if (line.contains("Seat 6")) { //TODO implement for different table size

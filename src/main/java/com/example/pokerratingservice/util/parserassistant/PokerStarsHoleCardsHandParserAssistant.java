@@ -15,9 +15,9 @@ import java.util.Set;
 
 public class PokerStarsHoleCardsHandParserAssistant extends HandParserAssistant{
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerDtoHashSet,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> handDtoListGlobal, Map<PlayerDto, Void> playerDtoMapGlobal, List<Hand> handListGlobal,
-                       Map<Player, Void> playerMapGlobal, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
+                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
+                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         System.out.println("Assisting in: " + this.getClass().getName());
     }

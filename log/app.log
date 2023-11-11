@@ -363,3 +363,389 @@ This generated password is for development use only. Your security configuration
 2023-11-11 10:59:07,857 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
 2023-11-11 10:59:07,857 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
 2023-11-11 10:59:07,858 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:24,268 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11 11:28:24,271 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-11-11 11:28:24,272 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-11-11 11:28:32,139 INFO c.e.p.PokerRatingServiceApplication [restartedMain] Starting PokerRatingServiceApplication using Java 19.0.2 with PID 1840 (C:\java\projects\PokerRatingService\target\classes started by r in C:\java\projects\PokerRatingService)
+2023-11-11 11:28:32,141 INFO c.e.p.PokerRatingServiceApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-11-11 11:28:32,182 INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-11 11:28:32,182 INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-11 11:28:32,701 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-11 11:28:32,748 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 41 ms. Found 2 JPA repository interfaces.
+2023-11-11 11:28:33,210 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2023-11-11 11:28:33,216 INFO o.a.c.h.Http11NioProtocol [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2023-11-11 11:28:33,218 INFO o.a.c.c.StandardService [restartedMain] Starting service [Tomcat]
+2023-11-11 11:28:33,218 INFO o.a.c.c.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-11 11:28:33,261 INFO o.a.c.c.C.[.[.[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2023-11-11 11:28:33,261 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1078 ms
+2023-11-11 11:28:33,381 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-11 11:28:33,424 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-11 11:28:33,426 INFO o.h.c.Environment [restartedMain] HHH000406: Using bytecode reflection optimizer
+2023-11-11 11:28:33,549 INFO o.h.b.i.BytecodeProviderInitiator [restartedMain] HHH000021: Bytecode provider name : bytebuddy
+2023-11-11 11:28:33,663 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-11 11:28:33,677 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2023-11-11 11:28:33,937 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1baacab
+2023-11-11 11:28:33,938 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2023-11-11 11:28:34,130 INFO o.h.b.i.BytecodeProviderInitiator [restartedMain] HHH000021: Bytecode provider name : bytebuddy
+2023-11-11 11:28:34,644 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-11 11:28:34,688 DEBUG o.h.SQL [restartedMain] alter table if exists "hand" alter column "max_players" set data type integer
+2023-11-11 11:28:34,692 WARN o.h.t.s.i.ExceptionHandlerLoggedImpl [restartedMain] GenerationTarget encountered exception accepting command : Error executing DDL "alter table if exists "hand" alter column "max_players" set data type integer" via JDBC [ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table if exists "hand" alter column "max_players" set data type integer" via JDBC [ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:92)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:284)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:293)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:444)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1455)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1158)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.example.pokerratingservice.PokerRatingServiceApplication.main(PokerRatingServiceApplication.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.postgresql.util.PSQLException: ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2401)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:368)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:498)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:415)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:335)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:321)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:297)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:292)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:78)
+	... 41 common frames omitted
+2023-11-11 11:28:34,723 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11 11:28:35,060 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-11 11:28:35,075 WARN o.s.b.a.s.s.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 4fd4b719-eaba-4a85-9378-13bdc821d412
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-11 11:28:35,144 INFO o.s.s.w.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7529f011, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@676b6129, org.springframework.security.web.context.SecurityContextHolderFilter@b099814, org.springframework.security.web.header.HeaderWriterFilter@554934a5, org.springframework.security.web.authentication.logout.LogoutFilter@2ffcc2e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ed73dc0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49e200b5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5bfecda1, org.springframework.security.web.access.ExceptionTranslationFilter@722cd314, org.springframework.security.web.access.intercept.AuthorizationFilter@60ae4fc2]
+2023-11-11 11:28:35,445 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2023-11-11 11:28:35,459 INFO o.a.c.h.Http11NioProtocol [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2023-11-11 11:28:35,473 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2023-11-11 11:28:35,480 INFO c.e.p.PokerRatingServiceApplication [restartedMain] Started PokerRatingServiceApplication in 3.64 seconds (process running for 4.959)
+2023-11-11 11:28:39,397 INFO o.a.c.c.C.[.[.[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-11 11:28:39,397 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-11-11 11:28:39,398 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2023-11-11 11:28:39,446 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,448 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,448 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,487 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:28:39,527 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,528 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:28:39,531 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,532 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:28:39,534 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,535 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:28:39,536 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,537 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:28:39,538 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,538 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,539 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,550 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,550 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,550 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,552 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,552 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,553 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,553 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,553 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,553 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,555 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,556 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,556 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,556 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,557 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,557 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,558 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,558 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,558 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:28:39,588 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:28:39,593 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,598 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,599 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,601 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:28:39,601 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,602 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,603 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,603 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:28:39,604 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,604 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,604 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,605 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:28:39,606 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,607 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,608 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,610 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:28:39,610 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,611 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:28:39,612 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:30:15,417 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11 11:30:15,421 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-11-11 11:30:15,423 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-11-11 11:39:39,433 INFO c.e.p.PokerRatingServiceApplication [restartedMain] Starting PokerRatingServiceApplication using Java 19.0.2 with PID 13856 (C:\java\projects\PokerRatingService\target\classes started by r in C:\java\projects\PokerRatingService)
+2023-11-11 11:39:39,435 INFO c.e.p.PokerRatingServiceApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-11-11 11:39:39,471 INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-11 11:39:39,471 INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-11 11:39:39,992 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-11 11:39:40,037 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 39 ms. Found 2 JPA repository interfaces.
+2023-11-11 11:39:40,489 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2023-11-11 11:39:40,496 INFO o.a.c.h.Http11NioProtocol [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2023-11-11 11:39:40,497 INFO o.a.c.c.StandardService [restartedMain] Starting service [Tomcat]
+2023-11-11 11:39:40,498 INFO o.a.c.c.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-11 11:39:40,539 INFO o.a.c.c.C.[.[.[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2023-11-11 11:39:40,540 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1069 ms
+2023-11-11 11:39:40,660 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-11 11:39:40,698 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-11 11:39:40,700 INFO o.h.c.Environment [restartedMain] HHH000406: Using bytecode reflection optimizer
+2023-11-11 11:39:40,808 INFO o.h.b.i.BytecodeProviderInitiator [restartedMain] HHH000021: Bytecode provider name : bytebuddy
+2023-11-11 11:39:40,913 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-11 11:39:40,928 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2023-11-11 11:39:41,062 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f0bae49
+2023-11-11 11:39:41,063 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2023-11-11 11:39:41,289 INFO o.h.b.i.BytecodeProviderInitiator [restartedMain] HHH000021: Bytecode provider name : bytebuddy
+2023-11-11 11:39:41,798 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-11 11:39:41,840 DEBUG o.h.SQL [restartedMain] alter table if exists "hand" alter column "max_players" set data type integer
+2023-11-11 11:39:41,845 WARN o.h.t.s.i.ExceptionHandlerLoggedImpl [restartedMain] GenerationTarget encountered exception accepting command : Error executing DDL "alter table if exists "hand" alter column "max_players" set data type integer" via JDBC [ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table if exists "hand" alter column "max_players" set data type integer" via JDBC [ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:92)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:284)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:293)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:444)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1455)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1158)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.example.pokerratingservice.PokerRatingServiceApplication.main(PokerRatingServiceApplication.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.postgresql.util.PSQLException: ОШИБКА: столбец "max_players" нельзя автоматически привести к типу integer
+  Подсказка: Возможно, необходимо указать "USING max_players::integer".
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2401)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:368)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:498)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:415)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:335)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:321)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:297)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:292)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:78)
+	... 41 common frames omitted
+2023-11-11 11:39:41,882 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11 11:39:42,176 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-11 11:39:42,190 WARN o.s.b.a.s.s.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: d894e4f8-4498-4b50-8655-013180a524aa
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-11-11 11:39:42,260 INFO o.s.s.w.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@527678bc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79c345e9, org.springframework.security.web.context.SecurityContextHolderFilter@75457174, org.springframework.security.web.header.HeaderWriterFilter@7b4b65c2, org.springframework.security.web.authentication.logout.LogoutFilter@6803bc10, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@706694fd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@615cdde2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@74a551c4, org.springframework.security.web.access.ExceptionTranslationFilter@5f135a27, org.springframework.security.web.access.intercept.AuthorizationFilter@12572922]
+2023-11-11 11:39:42,556 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2023-11-11 11:39:42,570 INFO o.a.c.h.Http11NioProtocol [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2023-11-11 11:39:42,584 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2023-11-11 11:39:42,591 INFO c.e.p.PokerRatingServiceApplication [restartedMain] Started PokerRatingServiceApplication in 3.457 seconds (process running for 4.261)
+2023-11-11 11:39:46,604 INFO o.a.c.c.C.[.[.[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-11 11:39:46,604 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-11-11 11:39:46,605 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2023-11-11 11:39:46,654 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,656 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,656 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,692 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:39:46,729 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,730 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:39:46,733 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,734 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:39:46,736 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,737 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:39:46,738 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,739 DEBUG o.h.SQL [http-nio-8080-exec-1] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:39:46,741 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,741 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,741 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,752 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,752 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,752 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,754 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,754 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,754 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,755 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,755 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,755 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,757 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,757 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,758 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,758 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,759 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,759 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,760 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,760 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,760 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-1] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:39:46,791 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:39:46,795 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,798 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,799 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,800 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:39:46,800 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,801 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,802 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,802 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:39:46,803 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,803 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,804 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,804 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:39:46,805 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,805 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,806 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,806 DEBUG o.h.SQL [http-nio-8080-exec-1] delete from "player_hand" where "player_id"=?
+2023-11-11 11:39:46,807 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,807 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:39:46,807 DEBUG o.h.SQL [http-nio-8080-exec-1] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:26,941 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,941 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,941 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,943 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,944 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,945 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,946 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,947 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,949 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,950 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,951 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,952 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,953 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,953 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,953 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,953 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,954 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,954 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,954 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,955 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,955 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,956 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,956 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,957 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,957 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,958 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,959 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,959 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,959 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,960 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,960 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,960 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,960 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,961 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,962 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,962 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,963 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,964 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,964 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,965 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,966 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,967 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,967 INFO c.e.p.u.p.PokerStarsInitHandParserAssistant [http-nio-8080-exec-5] Assisting in: com.example.pokerratingservice.util.parserassistant.PokerStarsInitHandParserAssistant
+2023-11-11 11:40:26,970 DEBUG o.h.SQL [http-nio-8080-exec-5] select h1_0."id",h1_0."date",h1_0."flop",h1_0."game_type",h1_0."hole_cards",h1_0."max_players",h1_0."river",h1_0."seating",h1_0."stake",h1_0."summary",h1_0."table_name",h1_0."turn",p1_0."hand_id",p1_1."id" from "hand" h1_0 left join ("player_hand" p1_0 join "player" p1_1 on p1_1."id"=p1_0."player_id") on h1_0."id"=p1_0."hand_id" where h1_0."id"=?
+2023-11-11 11:40:26,976 DEBUG o.h.SQL [http-nio-8080-exec-5] select h1_0."id",h1_0."date",h1_0."flop",h1_0."game_type",h1_0."hole_cards",h1_0."max_players",h1_0."river",h1_0."seating",h1_0."stake",h1_0."summary",h1_0."table_name",h1_0."turn",p1_0."hand_id",p1_1."id" from "hand" h1_0 left join ("player_hand" p1_0 join "player" p1_1 on p1_1."id"=p1_0."player_id") on h1_0."id"=p1_0."hand_id" where h1_0."id"=?
+2023-11-11 11:40:26,977 DEBUG o.h.SQL [http-nio-8080-exec-5] select h1_0."id",h1_0."date",h1_0."flop",h1_0."game_type",h1_0."hole_cards",h1_0."max_players",h1_0."river",h1_0."seating",h1_0."stake",h1_0."summary",h1_0."table_name",h1_0."turn",p1_0."hand_id",p1_1."id" from "hand" h1_0 left join ("player_hand" p1_0 join "player" p1_1 on p1_1."id"=p1_0."player_id") on h1_0."id"=p1_0."hand_id" where h1_0."id"=?
+2023-11-11 11:40:26,982 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "hand" ("date","flop","game_type","hole_cards","max_players","river","seating","stake","summary","table_name","turn","id") values (?,?,?,?,?,?,?,?,?,?,?,?)
+2023-11-11 11:40:26,986 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "hand" ("date","flop","game_type","hole_cards","max_players","river","seating","stake","summary","table_name","turn","id") values (?,?,?,?,?,?,?,?,?,?,?,?)
+2023-11-11 11:40:26,987 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "hand" ("date","flop","game_type","hole_cards","max_players","river","seating","stake","summary","table_name","turn","id") values (?,?,?,?,?,?,?,?,?,?,?,?)
+2023-11-11 11:40:26,989 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,990 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,991 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,992 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,993 DEBUG o.h.SQL [http-nio-8080-exec-5] select p1_0."id",h1_0."player_id",h1_1."id",h1_1."date",h1_1."flop",h1_1."game_type",h1_1."hole_cards",h1_1."max_players",h1_1."river",h1_1."seating",h1_1."stake",h1_1."summary",h1_1."table_name",h1_1."turn" from "player" p1_0 left join ("player_hand" h1_0 join "hand" h1_1 on h1_1."id"=h1_0."hand_id") on p1_0."id"=h1_0."player_id" where p1_0."id"=?
+2023-11-11 11:40:26,995 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player" ("id") values (?)
+2023-11-11 11:40:26,996 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player" ("id") values (?)
+2023-11-11 11:40:26,996 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player" ("id") values (?)
+2023-11-11 11:40:26,996 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player" ("id") values (?)
+2023-11-11 11:40:26,997 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player" ("id") values (?)
+2023-11-11 11:40:26,999 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:26,999 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,000 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,001 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,002 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,002 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,002 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,003 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,003 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,004 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,004 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,004 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,005 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,005 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)
+2023-11-11 11:40:27,006 DEBUG o.h.SQL [http-nio-8080-exec-5] insert into "player_hand" ("player_id","hand_id") values (?,?)

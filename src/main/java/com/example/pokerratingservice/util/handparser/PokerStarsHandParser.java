@@ -35,19 +35,13 @@ public class PokerStarsHandParser extends HandParser {
     private final HashSet<HandDto> handDtoHashSet;
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
-    private static final Map<PlayerDto, Void> playerDtoMapGlobal;
     private static final Map<Player, Void> playerMapGlobal;
-    private static final List<HandDto> handDtoListGlobal;
-    private static final List<Hand> handListGlobal;
     private static final Set<Player> playerSetAssigned;
     private static final Set<Hand> handSetAssigned;
 
 
     static {
-        playerDtoMapGlobal = new HashMap<>();
-        handDtoListGlobal = new ArrayList<>();
         playerMapGlobal = new HashMap<>();
-        handListGlobal = new ArrayList<>();
         playerSetAssigned = new HashSet<>();
         handSetAssigned = new HashSet<>();
     }
@@ -137,7 +131,8 @@ public class PokerStarsHandParser extends HandParser {
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
                 } else if (!line.isBlank()) {
                     HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, handDto, playerDtoList, playerDto, handService, playerService, playerDtoHashSet, stringBuilderMap, handDtoListGlobal, playerDtoMapGlobal);
+                    handParserAssistant.assist(line, handDto, playerDtoList, playerDto, handService, playerService, playerDtoHashSet,
+                            stringBuilderMap, playerMapGlobal, playerSetAssigned, handSetAssigned);
                 } else {
                     if (emptyRowCounter == 0) {
                         currentBlockString = "INIT";
@@ -157,8 +152,6 @@ public class PokerStarsHandParser extends HandParser {
             }
         }
         assignAndSave(playerService, handService, playerSetAssigned, handSetAssigned);
-        playerDtoMapGlobal.clear();
-        handDtoListGlobal.clear();
         logger.info("File read successfully");
     }
     public static void assignAndSave(PlayerService playerService, HandService handService, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
@@ -291,7 +284,7 @@ public class PokerStarsHandParser extends HandParser {
             } else if (!line.isBlank()) {
                 HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
                 handParserAssistant.assist(line, handDto, playerDtoList, playerDto, handService, playerService, playerDtoHashSet,
-                        stringBuilderMap, handDtoListGlobal, playerDtoMapGlobal, handListGlobal, playerMapGlobal, playerSetAssigned, handSetAssigned);
+                        stringBuilderMap, playerMapGlobal, playerSetAssigned, handSetAssigned);
             } else {
                 if (emptyRowCounter == 0) {
                     currentBlockString = "INIT";
@@ -313,8 +306,7 @@ public class PokerStarsHandParser extends HandParser {
 
         }
         assignAndSave(playerService, handService, playerSetAssigned, handSetAssigned);
-        playerDtoMapGlobal.clear();
-        handDtoListGlobal.clear();
+
     }
 
 
