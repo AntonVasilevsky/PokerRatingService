@@ -61,11 +61,13 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             } else if (playerFromRepositoryById.isPresent()) {
                 playerDto = playerService.convertPlayerToDto(playerFromRepositoryById.orElseThrow());
 
-                playerDtoList.add(playerDto); // TODO check List<Hand> is null?
+              //  playerDtoList.add(playerDto); // TODO check List<Hand> is nullssssssssssssssssssssssssssssssssssssss
+                assistantData.getPlayerDtoList().add(playerDto);
                 logger.debug("Player {} already exists in db.", playerName);
             } else {
                 playerDto = assistantData.getPlayerDtoHashSet().stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
-                playerDtoList.add(playerDto); // TODO check List<Hand> is null?
+             //   playerDtoList.add(playerDto); // TODO check List<Hand> is null?sssssssssssssssssssssssssss
+                assistantData.getPlayerDtoList().add(playerDto);
                 logger.debug("Player {} already exists in playerHashSet.", playerName);
             }
 

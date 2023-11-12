@@ -48,8 +48,9 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
             assignAndSave(hand, playerList, playerService, handService);*/
             Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
             Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
+            List<PlayerDto> playerDtoList1 = assistantData.getPlayerDtoList();
 
-            assign(handDto, playerDtoList, playerSetAssigned, handSetAssigned, playerService, handService);
+            assign(handDto, playerDtoList1, playerSetAssigned, handSetAssigned, playerService, handService);
 
             System.out.println("Hand processing complete");
 

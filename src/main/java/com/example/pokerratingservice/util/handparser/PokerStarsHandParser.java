@@ -253,10 +253,11 @@ public class PokerStarsHandParser extends HandParser {
         String line;
         String currentBlockString = "INIT";
         PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-        Hand hand = new Hand();         // todo заменить на дто
+        Hand hand = new Hand();
         HandDto handDto = new HandDto();
         PlayerDto playerDto = new PlayerDto();
-        List<PlayerDto> playerDtoList = new ArrayList<>();
+        List<PlayerDto> playerDtoList = new ArrayList<>();                //TODO
+
 
         Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
 
@@ -280,7 +281,8 @@ public class PokerStarsHandParser extends HandParser {
                     clearStringBuildersBeforeNewHand(stringBuilderMap);
                     System.out.println(hand);
                     hand = new Hand();
-                    playerDtoList = new ArrayList<>();
+                    playerDtoList = new ArrayList<>();                //TODO
+                    assistantData.setPlayerDtoList(new ArrayList<>());
                     emptyRowCounter++;
                 } else if (emptyRowCounter < 3) {
                     emptyRowCounter++;

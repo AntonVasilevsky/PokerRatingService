@@ -14,12 +14,14 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 public class AssistantData {
+    private List<PlayerDto> playerDtoList;
     private HashSet<PlayerDto> playerDtoHashSet;
     private Map<Player, Void> playerMapGlobal;
     private Set<Player> playerSetAssigned;
     private Set<Hand> handSetAssigned;
 
     public AssistantData() {
+        playerDtoList = new ArrayList<>();
         playerDtoHashSet = new HashSet<>();
         playerMapGlobal = new HashMap<>();
         playerSetAssigned = new HashSet<>();
