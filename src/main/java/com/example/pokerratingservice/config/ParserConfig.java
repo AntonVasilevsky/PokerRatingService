@@ -1,7 +1,7 @@
 package com.example.pokerratingservice.config;
 
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
-import com.example.pokerratingservice.util.parserassistant.*;
+import com.example.pokerratingservice.util.parserassistant.assistants.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.example.pokerratingservice.util.parserassistant;
+package com.example.pokerratingservice.util.parserassistant.assistants;
 
 import com.example.pokerratingservice.dto.HandDto;
 import com.example.pokerratingservice.dto.PlayerDto;
@@ -7,6 +7,7 @@ import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -30,9 +31,8 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
     }
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
-                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
-                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
+                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
         stringBuilderMap.get(PokerStarsHandBlockName.SUMMARY).append(line).append("/n");
         System.out.println("Assisting in: " + this.getClass().getName());
         if (line.contains("Seat 6")) { //TODO implement for different table size
@@ -46,6 +46,8 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
             Hand hand = handService.covertDtoToHand(handDto);
             hand.setPlayerList(new ArrayList<>());
             assignAndSave(hand, playerList, playerService, handService);*/
+            Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
+            Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
 
             assign(handDto, playerDtoList, playerSetAssigned, handSetAssigned, playerService, handService);
 

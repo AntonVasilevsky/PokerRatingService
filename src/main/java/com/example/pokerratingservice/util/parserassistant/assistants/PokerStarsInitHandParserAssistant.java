@@ -1,14 +1,14 @@
-package com.example.pokerratingservice.util.parserassistant;
+package com.example.pokerratingservice.util.parserassistant.assistants;
 
 import com.example.pokerratingservice.dto.HandDto;
 import com.example.pokerratingservice.dto.PlayerDto;
 import com.example.pokerratingservice.model.GameType;
-import com.example.pokerratingservice.model.Hand;
 import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
-import com.example.pokerratingservice.util.handparser.HandParser;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.handparser.HandParser;
+import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +34,8 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
-                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
-                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
+                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.contains("PokerStars")) {
             handDto.setId(getHandIdValueFromLine(line));
@@ -52,7 +51,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             String playerName = getPlayerNameFromLine(line);
             logger.debug("Found player in line: {}", playerName);
             Optional<Player> playerFromRepositoryById = playerService.getById(playerName); //  лишнее ????
-            boolean playerExistsInSet = playerMapGlobal.keySet().stream().anyMatch(p -> p.getId().equals(playerName));
+            boolean playerExistsInSet = assistantData.getPlayerMapGlobal().keySet().stream().anyMatch(p -> p.getId().equals(playerName));
             if (playerFromRepositoryById.isEmpty() && !playerExistsInSet) {
                 playerDto = new PlayerDto();
                 playerDto.setId(playerName);
@@ -65,7 +64,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
                 playerDtoList.add(playerDto); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in db.", playerName);
             } else {
-                playerDto = playerDtoHashSet.stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
+                playerDto = assistantData.getPlayerDtoHashSet().stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
                 playerDtoList.add(playerDto); // TODO check List<Hand> is null?
                 logger.debug("Player {} already exists in playerHashSet.", playerName);
             }

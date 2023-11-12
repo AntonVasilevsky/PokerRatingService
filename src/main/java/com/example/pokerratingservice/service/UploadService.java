@@ -1,7 +1,5 @@
 package com.example.pokerratingservice.service;
 
-import com.example.pokerratingservice.model.Hand;
-import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.util.SiteDetector;
 import com.example.pokerratingservice.util.enums.PokerSiteName;
 import com.example.pokerratingservice.util.handparser.HandParser;
@@ -13,7 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,12 +37,9 @@ public class UploadService {
             reader.mark(1024);
             PokerSiteName pokerSiteName = siteDetector.detectSiteName(reader);
             reader.reset();
-            Map<Player, Void> playerMapGlobal = new HashMap<>();
-            Set<Player> playerSetAssigned = new HashSet<>();
-            Set<Hand> handSetAssigned = new HashSet<>();
 
             HandParser handParser = parserMap.get(pokerSiteName);
-            handParser.parse(reader, playerSetAssigned, handSetAssigned, playerMapGlobal);
+            handParser.parse(reader);
         }
     }
 

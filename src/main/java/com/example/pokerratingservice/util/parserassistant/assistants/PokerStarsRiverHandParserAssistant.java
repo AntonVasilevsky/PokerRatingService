@@ -1,23 +1,21 @@
-package com.example.pokerratingservice.util.parserassistant;
+package com.example.pokerratingservice.util.parserassistant.assistants;
 
 import com.example.pokerratingservice.dto.HandDto;
 import com.example.pokerratingservice.dto.PlayerDto;
-import com.example.pokerratingservice.model.Hand;
-import com.example.pokerratingservice.model.Player;
 import com.example.pokerratingservice.service.HandService;
 import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
+import com.example.pokerratingservice.util.parserassistant.AssistantData;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-public class PokerStarsTurnHandParserAssistant extends HandParserAssistant{
+public class PokerStarsRiverHandParserAssistant extends HandParserAssistant{
+
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto, HandService handService, PlayerService playerService,
-                       HashSet<PlayerDto> playerDtoHashSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, Map<Player, Void> playerMapGlobal,
-                       Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
+                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         System.out.println("Assisting in: " + this.getClass().getName());
     }
