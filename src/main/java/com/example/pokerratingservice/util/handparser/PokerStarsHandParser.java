@@ -35,7 +35,7 @@ public class PokerStarsHandParser extends HandParser {
     private final HashSet<HandDto> handDtoHashSet;
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
-    private static final Map<Player, Void> playerMapGlobal;
+  /*  private static final Map<Player, Void> playerMapGlobal;
     private static final Set<Player> playerSetAssigned;
     private static final Set<Hand> handSetAssigned;
 
@@ -44,7 +44,7 @@ public class PokerStarsHandParser extends HandParser {
         playerMapGlobal = new HashMap<>();
         playerSetAssigned = new HashSet<>();
         handSetAssigned = new HashSet<>();
-    }
+    }*/
 
     public PokerStarsHandParser(PlayerService playerService, HandService handService, HashSet<PlayerDto> playerDtoHashSet, HashSet<HandDto> handDtoHashSet, List<HandParserAssistant> assistantList) {
         super(POKER_STARS);
@@ -106,7 +106,7 @@ public class PokerStarsHandParser extends HandParser {
     }
 
     @Override
-    public void parse(File file) throws IOException {
+    public void parse(File file, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned, Map<Player, Void> playerMapGlobal) throws IOException {
         logger.debug("Reading file: {}", file);
         try (FileInputStream fis = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(fis);
@@ -163,101 +163,9 @@ public class PokerStarsHandParser extends HandParser {
 
     }
 
-  /*  public void parse(MultipartFile file) throws IOException {
-        logger.debug("Reading file: {}", file);
-        try (
-                InputStreamReader isr = new InputStreamReader(file.getInputStream());
-                BufferedReader reader = new BufferedReader(isr)) {
-            // TODO добавить проверку есть ли раздача в бд
 
-            String line;
-            String currentBlockString = "INIT";
-            PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-            List<Player> playerList = new ArrayList<>();
-            Hand hand = new Hand();
-            Player player = new Player();
-            Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
-
-            handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
-            int emptyRowCounter = 0;
-            while ((line = reader.readLine()) != null) {
-
-                if (line.contains("***")) {
-                    String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
-                    currentBlockString = HandParser.getStringByRegex(line, regex, 1);
-                    currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                } else if (!line.isBlank()) {
-                    HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                    handParserAssistant.assist(line, hand, playerList, player, handService, playerService, playerHashSet, stringBuilderMap);
-                } else {
-                    if (emptyRowCounter == 0) {
-                        currentBlockString = "INIT";
-                        currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                        clearStringBuildersBeforeNewHand(stringBuilderMap);
-                        System.out.println(hand);
-                        hand = new Hand();
-                        playerList = new ArrayList<>();
-                        emptyRowCounter++;
-                    } else if (emptyRowCounter < 3) {
-                        emptyRowCounter++;
-                    }
-                    if (emptyRowCounter == 3) {
-                        emptyRowCounter = 0;
-                    }
-
-
-                }
-
-            }
-        }
-        logger.info("File read successfully");
-    }*/
-
-    /*  public void parse(File file) throws IOException {
-          logger.debug("Reading file: {}", file);
-          try (FileInputStream fis = new FileInputStream(file);
-               InputStreamReader isr = new InputStreamReader(fis);
-               BufferedReader reader = new BufferedReader(isr)) {
-              // TODO добавить проверку есть ли раздача в бд
-              String line;
-              String currentBlockString = "INIT";
-              PokerStarsHandBlockName currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-              List<Player> playerList = new ArrayList<>();
-              Hand hand = new Hand();
-              Player player = new Player();
-              Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
-              handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
-              int emptyRowCounter = 0;
-              while ((line = reader.readLine()) != null) {
-                  if (line.contains("***")) {
-                      String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
-                      currentBlockString = HandParser.getStringByRegex(line, regex, 1);
-                      currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                  } else if (!line.isBlank()) {
-                      HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                      handParserAssistant.assist(line, hand, playerList, player, handService, playerService, playerHashSet, stringBuilderMap);
-                  } else {
-                      if (emptyRowCounter == 0) {
-                          currentBlockString = "INIT";
-                          currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                          clearStringBuildersBeforeNewHand(stringBuilderMap);
-                          System.out.println(hand);
-                          hand = new Hand();
-                          playerList = new ArrayList<>();
-                          emptyRowCounter++;
-                      } else if (emptyRowCounter < 3) {
-                          emptyRowCounter++;
-                      }
-                      if (emptyRowCounter == 3) {
-                          emptyRowCounter = 0;
-                      }
-                  }
-              }
-          }
-          logger.info("File read successfully");
-      }*/
     @Override
-    public void parse(BufferedReader reader) throws IOException {       // or better recieve a file
+    public void parse(BufferedReader reader, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned, Map<Player, Void> playerMapGlobal) throws IOException {       // or better recieve a file
 
 
         // TODO добавить проверку есть ли раздача в бд
@@ -311,10 +219,10 @@ public class PokerStarsHandParser extends HandParser {
 
 
     @Override
-    public void readFiles(String path) throws IOException {
+    public void readFiles(String path, Set<Player> playerSetAssigned, Set<Hand> handSetAssigned, Map<Player, Void> playerMapGlobal) throws IOException {
         File folder = new File(path);
         for (File file : Objects.requireNonNull(folder.listFiles())) {
-            parse(file);
+            parse(file, playerSetAssigned, handSetAssigned, playerMapGlobal);
         }
     }
 
