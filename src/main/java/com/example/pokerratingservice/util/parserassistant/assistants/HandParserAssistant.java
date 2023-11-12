@@ -29,8 +29,7 @@ public abstract class HandParserAssistant  {
     }
 
 
-    public abstract void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
-                                Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData);
+    public abstract void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData);
 }
 
 

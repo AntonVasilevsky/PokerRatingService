@@ -34,8 +34,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
+    public void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData) {
         logger.info("Assisting in: {}", this.getClass().getName());
         if (line.contains("PokerStars")) {
             handDto.setId(getHandIdValueFromLine(line));
@@ -46,7 +45,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             handDto.setTableName(getTableNameFromLine(line));
             handDto.setMaxPlayer(getMaxPLayersFromLine(line));
         } else if (line.startsWith("Seat")) {
-            stringBuilderMap.get(PokerStarsHandBlockName.SEATING)
+            assistantData.getStringBuilderMap().get(PokerStarsHandBlockName.SEATING)
                     .append(line).append("\n");
             String playerName = getPlayerNameFromLine(line);
             logger.debug("Found player in line: {}", playerName);
@@ -56,17 +55,15 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
                 playerDto = new PlayerDto();
                 playerDto.setId(playerName);
                 playerDto.setHandDtoList(new ArrayList<>());
-                playerDtoList.add(playerDto);
+                assistantData.getPlayerDtoList().add(playerDto);
                 logger.debug("Player {} not found in db. Creating new Player entity", playerName);
             } else if (playerFromRepositoryById.isPresent()) {
                 playerDto = playerService.convertPlayerToDto(playerFromRepositoryById.orElseThrow());
 
-              //  playerDtoList.add(playerDto); // TODO check List<Hand> is nullssssssssssssssssssssssssssssssssssssss
                 assistantData.getPlayerDtoList().add(playerDto);
                 logger.debug("Player {} already exists in db.", playerName);
             } else {
                 playerDto = assistantData.getPlayerDtoHashSet().stream().filter(p -> p.getId().equals(playerName)).findAny().orElseThrow();
-             //   playerDtoList.add(playerDto); // TODO check List<Hand> is null?sssssssssssssssssssssssssss
                 assistantData.getPlayerDtoList().add(playerDto);
                 logger.debug("Player {} already exists in playerHashSet.", playerName);
             }

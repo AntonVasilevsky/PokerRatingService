@@ -245,7 +245,7 @@ public class PokerStarsHandParser extends HandParser {
           logger.info("File read successfully");
       }*/
     @Override
-    public void parse(BufferedReader reader) throws IOException {       // or better recieve a file
+    public void parse(BufferedReader reader) throws IOException {
 
         AssistantData assistantData = new AssistantData();
         // TODO добавить проверку есть ли раздача в бд
@@ -256,32 +256,24 @@ public class PokerStarsHandParser extends HandParser {
         Hand hand = new Hand();
         HandDto handDto = new HandDto();
         PlayerDto playerDto = new PlayerDto();
-        List<PlayerDto> playerDtoList = new ArrayList<>();                //TODO
 
-
-        Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = new HashMap<>();
-
-        handBlockNameslist.forEach(blockName -> stringBuilderMap.put(blockName, new StringBuilder()));
+        handBlockNameslist.forEach(blockName -> assistantData.getStringBuilderMap().put(blockName, new StringBuilder()));
         int emptyRowCounter = 0;
         while ((line = reader.readLine()) != null) {
-
             if (line.contains("***")) {
                 String regex = "\\*{3}\\s*(.*?)\\s*\\*{3}";
                 currentBlockString = HandParser.getStringByRegex(line, regex, 1);
                 currentBlock = getCurrentBlockEnumFromString(currentBlockString);
             } else if (!line.isBlank()) {
                 HandParserAssistant handParserAssistant = assistantMap.get(currentBlock);
-                handParserAssistant.assist(line, handDto, playerDtoList, playerDto,
-                        stringBuilderMap, assistantData);
-
+                handParserAssistant.assist(line, handDto, playerDto, assistantData);
             } else {
                 if (emptyRowCounter == 0) {
                     currentBlockString = "INIT";
                     currentBlock = getCurrentBlockEnumFromString(currentBlockString);
-                    clearStringBuildersBeforeNewHand(stringBuilderMap);
+                    clearStringBuildersBeforeNewHand(assistantData.getStringBuilderMap());
                     System.out.println(hand);
                     hand = new Hand();
-                    playerDtoList = new ArrayList<>();                //TODO
                     assistantData.setPlayerDtoList(new ArrayList<>());
                     emptyRowCounter++;
                 } else if (emptyRowCounter < 3) {
@@ -290,10 +282,7 @@ public class PokerStarsHandParser extends HandParser {
                 if (emptyRowCounter == 3) {
                     emptyRowCounter = 0;
                 }
-
-
             }
-
         }
         Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
         Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();

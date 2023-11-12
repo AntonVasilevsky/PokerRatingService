@@ -14,8 +14,8 @@ import java.util.Map;
 public class PokerStarsRiverHandParserAssistant extends HandParserAssistant{
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
+    public void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData) {
+        Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = assistantData.getStringBuilderMap();
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         System.out.println("Assisting in: " + this.getClass().getName());
     }

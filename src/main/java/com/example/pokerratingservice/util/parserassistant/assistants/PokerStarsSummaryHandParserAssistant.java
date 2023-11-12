@@ -31,26 +31,15 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
     }
 
     @Override
-    public void assist(String line, HandDto handDto, List<PlayerDto> playerDtoList, PlayerDto playerDto,
-                       Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, AssistantData assistantData) {
+    public void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData) {
+        Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = assistantData.getStringBuilderMap();
         stringBuilderMap.get(PokerStarsHandBlockName.SUMMARY).append(line).append("/n");
         System.out.println("Assisting in: " + this.getClass().getName());
         if (line.contains("Seat 6")) { //TODO implement for different table size
 
             setHandDtoFieldsWithBlocks(handDto, stringBuilderMap);
-           /* List<Player> playerList = playerDtoList.stream().map(playerService::convertDtoToPLayer).toList();
 
-            playerList.forEach(player -> player.setHandList(new ArrayList<>()));
-
-
-            Hand hand = handService.covertDtoToHand(handDto);
-            hand.setPlayerList(new ArrayList<>());
-            assignAndSave(hand, playerList, playerService, handService);*/
-            Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
-            Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
-            List<PlayerDto> playerDtoList1 = assistantData.getPlayerDtoList();
-
-            assign(handDto, playerDtoList1, playerSetAssigned, handSetAssigned, playerService, handService);
+            assign(handDto, assistantData);
 
             System.out.println("Hand processing complete");
 
@@ -65,10 +54,11 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         handService.saveOne(hand);
         playerService.saveAll(playerList);
     }
-    private static void assign(HandDto handDto, List<PlayerDto> playerDtoList,
-                               Set<Player> playerSetAssigned, Set<Hand> handSetAssigned, PlayerService playerService, HandService handService) {
-    //TODO здесь создавать связи и сохранять в статику
-        // TODO create static sets of players and hands for assigned instances
+    private void assign(HandDto handDto, AssistantData assistantData) {
+
+        Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
+        Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
+        List<PlayerDto> playerDtoList = assistantData.getPlayerDtoList();
 
             Hand hand = handService.covertDtoToHand(handDto);
         if (!handSetAssigned.contains(hand)) {
