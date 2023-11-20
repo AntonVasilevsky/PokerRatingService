@@ -18,4 +18,6 @@ public interface HandService {
     List<Hand> convertAllDtoToHand(List<HandDto> handDtoListGlobal);
 
     void saveAll(List<Hand> handList);
+
+    List<Hand> getAllByName(String name);
 }

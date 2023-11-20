@@ -15,7 +15,6 @@ import java.util.Objects;
 @Setter
 @Builder
 @AllArgsConstructor
-
 public class Player {
     @Id
     @Column(name = "id")

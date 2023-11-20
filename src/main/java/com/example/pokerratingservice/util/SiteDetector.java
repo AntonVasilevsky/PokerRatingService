@@ -12,12 +12,12 @@ import static com.example.pokerratingservice.util.enums.PokerSiteName.POKER_STAR
 @Component
 public class SiteDetector {
     private static final Logger logger = LoggerFactory.getLogger(SiteDetector.class);
-    private static final String pokerStarsFirstLine = "PokerStars";
+    private static final String POKER_STARS_FIRST_LINE = "PokerStars";
 
     public PokerSiteName detectSiteName(BufferedReader reader) throws IOException {
 
         String line = reader.readLine();
-        if (line.contains(pokerStarsFirstLine)) {
+        if (line.contains(POKER_STARS_FIRST_LINE)) {
             return POKER_STARS;
         }else throw new IOException("Unknown file format");
 

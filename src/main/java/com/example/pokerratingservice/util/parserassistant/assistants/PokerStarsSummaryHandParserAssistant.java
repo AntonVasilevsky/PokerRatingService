@@ -10,7 +10,10 @@ import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Component
 public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
@@ -25,10 +28,7 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         this.handService = handService;
     }
 
-    @Override
-    public void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService, HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> globalHandDtoList, Map<PlayerDto, Void> globalPlayerDtoList) {
 
-    }
 
     @Override
     public void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData) {

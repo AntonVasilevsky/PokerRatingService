@@ -13,14 +13,19 @@ import com.example.pokerratingservice.util.enums.PokerStarsKeywords;
 import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import com.example.pokerratingservice.util.parserassistant.assistants.HandParserAssistant;
 import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.pokerratingservice.util.enums.PokerSiteName.POKER_STARS;
@@ -28,14 +33,14 @@ import static com.example.pokerratingservice.util.enums.PokerSiteName.POKER_STAR
 
 @Component
 @Getter
+@Slf4j
 public class PokerStarsHandParser extends HandParser {
     private final PlayerService playerService;
     private final HandService handService;
-    private static final Logger logger = LoggerFactory.getLogger(PokerStarsHandParser.class);
     private final Map<PokerStarsHandBlockName, HandParserAssistant> assistantMap;
     private final List<PokerStarsHandBlockName> handBlockNameslist;
 
-
+    @Autowired
     public PokerStarsHandParser(PlayerService playerService, HandService handService, List<HandParserAssistant> assistantList) {
         super(POKER_STARS);
         this.playerService = playerService;
@@ -142,7 +147,7 @@ public class PokerStarsHandParser extends HandParser {
         assignAndSave(playerService, handService, playerSetAssigned, handSetAssigned);
         logger.info("File read successfully");
     }*/
-    public void assignAndSave(Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
+    public void saveAssigned(Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
 
         handService.saveAll(handSetAssigned.stream().toList());
         playerService.saveAll(playerSetAssigned.stream().toList());
@@ -286,7 +291,7 @@ public class PokerStarsHandParser extends HandParser {
         }
         Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
         Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
-        assignAndSave(playerSetAssigned, handSetAssigned);
+        saveAssigned(playerSetAssigned, handSetAssigned);
 
     }
 

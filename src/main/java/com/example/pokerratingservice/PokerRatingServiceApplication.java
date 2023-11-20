@@ -32,44 +32,7 @@ public class PokerRatingServiceApplication implements CommandLineRunner {
         SpringApplication.run(PokerRatingServiceApplication.class, args);
     }
 
-    /* @Override
-     public void run(String... args) throws Exception {
-         logger.debug("Starting run");
 
-         pokerStarsHandParser.readFile(path);
-         HashSet<Hand> handHashSet = pokerStarsHandParser.getHandHashSet();
-         HashSet<Player> playerHashSet = pokerStarsHandParser.getPlayerHashSet();
-
-         logger.info("PRINTING SETS");
-
-         handHashSet.forEach(hand -> System.out.println(hand.getId()));
-         playerHashSet.forEach(player -> System.out.println(player.getId()));
-
-         databaseHandler.saveEntities(playerHashSet, handHashSet);
-
-
-         logger.debug("DONE");
-     }*/
-    /*@Override
-
-    public void run(String... args) throws Exception {
-        logger.debug("Starting run");
-        Player p1 = buildTestPlayer("P1");
-        Player p2 = buildTestPlayer("P2");
-        Hand h1 = buildTestHand(123456789123L);
-        Hand h2 = buildTestHand(123456789122L);
-        Hand h3 = buildTestHand(123456789121L);
-
-        assignAndSave(p1, h1, handService, playerService);
-        assignAndSave(p1, h2, handService, playerService);
-        assignAndSave(p2, h1, handService, playerService);
-        assignAndSave(p2, h2, handService, playerService);
-        assignAndSave(p1, h3, handService, playerService);
-        assignAndSave(p2, h3, handService, playerService);
-
-
-        logger.debug("DONE");
-    }*/
     @Override
 
     public void run(String... args) throws Exception {

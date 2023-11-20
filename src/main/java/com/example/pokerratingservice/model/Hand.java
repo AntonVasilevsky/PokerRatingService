@@ -1,5 +1,6 @@
 package com.example.pokerratingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,6 +42,7 @@ public class Hand {
     private String river;
     @Column(name = "summary", length = 500)
     private String summary;
+    @JsonIgnore
     @ManyToMany(mappedBy = "handList", cascade = CascadeType.ALL)
     private List<Player> playerList;
 

@@ -1,6 +1,6 @@
 package com.example.pokerratingservice.controller;
 
-import com.example.pokerratingservice.service.UploadService;
+import com.example.pokerratingservice.service.UploadServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class UploadController {
 
-    private UploadService uploadService;
+    private UploadServiceImpl uploadService;
     @PostMapping("")
     public HttpStatus uploadManyHands(@RequestParam("files") MultipartFile[] files) {
         try {

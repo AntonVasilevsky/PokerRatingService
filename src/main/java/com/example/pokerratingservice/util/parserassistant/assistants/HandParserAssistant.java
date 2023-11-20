@@ -9,8 +9,6 @@ import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -21,9 +19,6 @@ public abstract class HandParserAssistant  {
     private PlayerService playerService;
     private HandService handService;
 
-    public abstract void assist(String line, HandDto hand, List<PlayerDto> playerList, PlayerDto player, HandService handService, PlayerService playerService,
-                                HashSet<PlayerDto> playerSet, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, List<HandDto> globalHandDtoList,
-                                Map<PlayerDto, Void> globalPlayerDtoList);
     public void appendLineToStringBuilderFromMap(PokerStarsHandBlockName blockName, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, String line) {
         stringBuilderMap.get(blockName).append(line).append("\n");
     }

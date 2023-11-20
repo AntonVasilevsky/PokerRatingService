@@ -44,4 +44,11 @@ public class PokerStarsHandServiceImpl implements HandService {
     public Hand covertDtoToHand(HandDto handDto) {
         return modelMapper.map(handDto, Hand.class);
     }
+
+    @Override
+    public List<Hand> getAllByName(String name) {
+
+
+        return null;
+    }
 }
