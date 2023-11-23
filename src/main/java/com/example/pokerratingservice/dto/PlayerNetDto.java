@@ -13,19 +13,14 @@ import java.time.LocalDateTime;
 @Builder
 public class PlayerNetDto {
     String id;
-    Long handId;
+    long handId;
     LocalDateTime date;
-    Long WonPerHand;
-    Double vpip;
+    double vpip;
+    double wonPerHand;
 
     @Override
     public String toString() {
-        return "PlayerNetDto{" +
-                "id='" + id + '\'' +
-                ", handId=" + handId +
-                ", date=" + date +
-                '}';
+        return "Player: " + id + "\nwon: " + wonPerHand;
     }
-
 
 }

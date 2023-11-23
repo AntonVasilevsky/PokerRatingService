@@ -61,7 +61,6 @@ public class PokerStarsHandParser extends HandParser {
         double totalPotValue = 0;
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-
             if (line.contains(playerName) && line.contains(bigBlind)) {
                 putMoneyInPot += stakeFromHand;
             }
@@ -71,7 +70,6 @@ public class PokerStarsHandParser extends HandParser {
             if (line.contains(bet) || line.contains(raise) || line.contains(call)) {
                 putMoneyInPot += getHeroPutMoneyInPotFromLine(line);
             }
-
             if (line.contains(playerName) && line.contains(PokerStarsKeywords.WON.toString())) {
                 won = true;
             }
@@ -79,7 +77,6 @@ public class PokerStarsHandParser extends HandParser {
                 totalPotValue += getHeroPutMoneyInPotFromLine(line);
             }
         }
-
         if (won) {
             ammountWon += (totalPotValue - putMoneyInPot);
         } else {
@@ -148,7 +145,6 @@ public class PokerStarsHandParser extends HandParser {
         logger.info("File read successfully");
     }*/
     public void saveAssigned(Set<Player> playerSetAssigned, Set<Hand> handSetAssigned) {
-
         handService.saveAll(handSetAssigned.stream().toList());
         playerService.saveAll(playerSetAssigned.stream().toList());
     }
@@ -314,7 +310,7 @@ public class PokerStarsHandParser extends HandParser {
             case "RIVER" -> PokerStarsHandBlockName.RIVER;
             case "SHOW DOWN" -> PokerStarsHandBlockName.SHOW_DOWN;
             case "SUMMARY" -> PokerStarsHandBlockName.SUMMARY;
-            default -> throw new IllegalStateException("Unexpected value: " + currentBlockString);
+            default -> throw new IllegalStateException("Unexpected hand block value: " + currentBlockString);
         };
     }
 

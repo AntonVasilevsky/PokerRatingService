@@ -44,7 +44,7 @@ public class ParserConfig {
     }
     @Bean
     public HandParserAssistant getShowDownPokerStarsParserAssistant() {
-        PokerStarsRiverHandParserAssistant assistant = new PokerStarsRiverHandParserAssistant();
+        PokerStarsShowDownHandParserAssistant assistant = new PokerStarsShowDownHandParserAssistant();
         assistant.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SHOW_DOWN);
         return assistant;
     }

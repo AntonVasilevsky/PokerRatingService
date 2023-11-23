@@ -49,7 +49,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             handDto.setId(getHandIdValueFromLine(line));
             handDto.setDate(getDateValueFromLine(line));
             handDto.setGameType(getGameTypeFromLine(line));
-            handDto.setStake(getBigBlindValueFromLine(line));
+            handDto.setStake(getPlayerPutMoneyInPotFromLine(line));
         } else if (line.startsWith("Table")) {
             handDto.setTableName(getTableNameFromLine(line));
             handDto.setMaxPlayer(getMaxPLayersFromLine(line));
@@ -62,10 +62,6 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             playerNetDto.setHandId(handDto.getId());
             playerNetDto.setDate(handDto.getDate());
 
-
-
-
-            System.out.println(playerNetDto);
             assistantData.getPlayerNetDtoList().add(playerNetDto);
             log.debug("Found player in line: {}", playerName);
             Optional<Player> playerFromRepositoryById = playerService.getById(playerName); //  лишнее ????
@@ -88,20 +84,15 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
             }
 
         } else if (line.contains("small blind")) {
-            String name = getPlayerNameOnBlind(line);
+            String name = getPlayerNameOnAction(line);
             Double blind = handDto.getStake()/2;
-            setBlindToPersonNetDto(assistantData, name, blind);
+            setAmountVpipToPersonNetDto(assistantData, name, blind);
         } else if (line.contains("big blind")) {
-            String name = getPlayerNameOnBlind(line);
+            String name = getPlayerNameOnAction(line);
             Double blind = handDto.getStake();
-            setBlindToPersonNetDto(assistantData, name, blind);
+            setAmountVpipToPersonNetDto(assistantData, name, blind);
         }
     }
-
-    private static void setBlindToPersonNetDto(AssistantData assistantData, String name, Double blind) {
-        assistantData.getPlayerNetDtoList().stream().filter(p -> p.getId().equals(name)).findFirst().orElseThrow().setVpip(blind);
-    }
-
 
     public long getHandIdValueFromLine(String line) {
         String regex = "#(\\d+)";
@@ -116,16 +107,6 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
         return LocalDateTime.parse(group, dtf);
     }
 
-    public double getBigBlindValueFromLine(String string) {
-        String regex = "\\$([0-9.]+)";
-        String group = HandParser.getStringByRegex(string, regex, 1);
-        return Double.parseDouble(group);
-    }
-
-
-    public double getHeroPutMoneyInPotFromLine(String line) {
-        return 0;
-    }
 
     public GameType getGameTypeFromLine(String line) {
         if (line.contains("Hold'em Limit")) {
@@ -167,11 +148,5 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
         String regex = "'(.*?)'";
         return HandParser.getStringByRegex(line, regex, 1);
     }
-
-    public String getPlayerNameOnBlind(String line) {
-        String regex = "^(.*?):";
-        return HandParser.getStringByRegex(line, regex, 1);
-    }
-
 
 }

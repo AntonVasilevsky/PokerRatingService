@@ -13,7 +13,11 @@ public class PokerStarsFlopHandParserAssistant extends HandParserAssistant{
     public void assist(String line, HandDto handDto, PlayerDto playerDto, AssistantData assistantData) {
         Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = assistantData.getStringBuilderMap();
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
-        System.out.println("Assisting in: " + this.getClass().getName());
+        processPersonNetDto(assistantData, line);
     }
+
+
+
+
 
 }
