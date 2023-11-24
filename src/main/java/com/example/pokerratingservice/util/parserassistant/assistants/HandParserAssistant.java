@@ -31,8 +31,12 @@ public abstract class HandParserAssistant  {
         String regex = "^(.*?):";
         return HandParser.getStringByRegex(line, regex, 1);
     }
-    public void setAmountVpipToPersonNetDto(AssistantData assistantData, String name, Double blind) {
-        assistantData.getPlayerNetDtoList().stream().filter(p -> p.getId().equals(name)).findFirst().orElseThrow().setVpip(blind);
+    public void setAmountVpipToPersonNetDto(AssistantData assistantData, String name, double vpip) {
+        assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
+            if(playerNetDto.getId().equals(name)){
+                playerNetDto.setVpip(playerNetDto.getVpip()+vpip);
+            }
+        });
     }
     public double getPlayerPutMoneyInPotFromLine(String line) {
         String regex = "\\$([0-9.]+)";
@@ -43,8 +47,49 @@ public abstract class HandParserAssistant  {
         if(line.contains(PokerStarsKeywords.RAISE.getValue()) || line.contains(PokerStarsKeywords.CALL.getValue())
                 || line.contains(PokerStarsKeywords.BET.getValue())) {
             String playerNameOnAction = getPlayerNameOnAction(line);
-            double ammountVpip = getPlayerPutMoneyInPotFromLine(line);
+            double ammountVpip = getPlayerPutMoneyInPotFromLine(line) * -1;
             setAmountVpipToPersonNetDto(assistantData, playerNameOnAction, ammountVpip);
+        }
+        processUncalledBet(line, assistantData);
+        processWinner(line, assistantData);
+    }
+
+    private void processUncalledBet(String line, AssistantData assistantData) {
+        if(line.contains("Uncalled bet")) {
+          String regexpName = "\\bto\\s+([^\\s]+)";
+            String uncalledName = HandParser.getStringByRegex(line, regexpName, 1);
+          String regexpBet = "\\$([\\d.]+)";
+            String stringUncalledBet = HandParser.getStringByRegex(line, regexpBet, 1);
+            double uncalledBet = Double.parseDouble(stringUncalledBet);
+            assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
+                if(playerNetDto.getId().equals(uncalledName)) {
+                    playerNetDto.setVpip(playerNetDto.getVpip() + uncalledBet);
+                }
+            });
+        }
+    }
+
+    public String getWinnerName(String line) {
+
+            String regex = "^(.*?) ";
+            return HandParser.getStringByRegex(line, regex, 1);
+
+    }
+    public double getTotalPot(String line) {
+
+        String regex = "\\$(\\d+(\\.\\d+)?)";
+        String stringByRegex = HandParser.getStringByRegex(line, regex, 1);
+        return Double.parseDouble(stringByRegex);
+    }
+    public void processWinner(String line, AssistantData assistantData) {
+        if(line.contains("collected")) {
+            double totalPot = getTotalPot(line); //TODO process returned bet after bet fold
+            String winnerName = getWinnerName(line);
+            assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
+                if(playerNetDto.getId().equals(winnerName)) {
+                    playerNetDto.setWonPerHand(totalPot + playerNetDto.getVpip());
+                }
+            });
         }
     }
 }

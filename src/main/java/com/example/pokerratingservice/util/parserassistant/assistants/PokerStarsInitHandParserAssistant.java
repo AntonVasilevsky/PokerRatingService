@@ -85,11 +85,11 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
 
         } else if (line.contains("small blind")) {
             String name = getPlayerNameOnAction(line);
-            Double blind = handDto.getStake()/2;
+            double blind = handDto.getStake()/2 * -1;
             setAmountVpipToPersonNetDto(assistantData, name, blind);
         } else if (line.contains("big blind")) {
             String name = getPlayerNameOnAction(line);
-            Double blind = handDto.getStake();
+            double blind = handDto.getStake() * -1;
             setAmountVpipToPersonNetDto(assistantData, name, blind);
         }
     }

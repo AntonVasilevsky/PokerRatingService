@@ -14,8 +14,8 @@ public class PokerStarsFlopHandParserAssistant extends HandParserAssistant{
         Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap = assistantData.getStringBuilderMap();
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         processPersonNetDto(assistantData, line);
-    }
 
+    }
 
 
 

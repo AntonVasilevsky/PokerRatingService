@@ -17,6 +17,7 @@ public class PlayerNetDto {
     LocalDateTime date;
     double vpip;
     double wonPerHand;
+    boolean won;
 
     @Override
     public String toString() {
