@@ -58,7 +58,7 @@ public class PokerStarsInitHandParserAssistant extends HandParserAssistant {
                     .append(line).append("\n");
             String playerName = getPlayerNameFromLine(line);
 
-            playerNetDto.setId(playerName);
+            playerNetDto.setName(playerName);
             playerNetDto.setHandId(handDto.getId());
             playerNetDto.setDate(handDto.getDate());
 

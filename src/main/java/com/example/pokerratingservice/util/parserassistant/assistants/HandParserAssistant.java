@@ -33,7 +33,7 @@ public abstract class HandParserAssistant  {
     }
     public void setAmountVpipToPersonNetDto(AssistantData assistantData, String name, double vpip) {
         assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
-            if(playerNetDto.getId().equals(name)){
+            if(playerNetDto.getName().equals(name)){
                 playerNetDto.setVpip(playerNetDto.getVpip()+vpip);
             }
         });
@@ -71,7 +71,7 @@ public abstract class HandParserAssistant  {
             String stringUncalledBet = HandParser.getStringByRegex(line, regexpBet, 1);
             double uncalledBet = Double.parseDouble(stringUncalledBet);
             assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
-                if(playerNetDto.getId().equals(uncalledName)) {
+                if(playerNetDto.getName().equals(uncalledName)) {
                     playerNetDto.setVpip(playerNetDto.getVpip() + uncalledBet);
                 }
             });
@@ -95,7 +95,7 @@ public abstract class HandParserAssistant  {
             double totalPot = getTotalPot(line); //TODO process returned bet after bet fold
             String winnerName = getWinnerName(line);
             assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
-                if(playerNetDto.getId().equals(winnerName)) {
+                if(playerNetDto.getName().equals(winnerName)) {
                     playerNetDto.setWon(true);
                     playerNetDto.setWonPerHand(totalPot + playerNetDto.getVpip());
                 }

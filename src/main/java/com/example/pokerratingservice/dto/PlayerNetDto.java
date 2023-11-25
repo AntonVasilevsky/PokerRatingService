@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class PlayerNetDto {
-    String id;
+    int id;
+    String name;
     long handId;
     LocalDateTime date;
     double vpip;
@@ -21,7 +22,7 @@ public class PlayerNetDto {
 
     @Override
     public String toString() {
-        return "Player: " + id + "\nwon: " + wonPerHand;
+        return "Player: " + name + "\nwon: " + wonPerHand;
     }
 
 }

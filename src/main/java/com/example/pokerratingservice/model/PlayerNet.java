@@ -15,8 +15,11 @@ import java.time.LocalDateTime;
 @Setter
 public class PlayerNet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    String id;
+    int id;
+    @Column(name = "name")
+    String name;
     @Transient
     long handId;
     @Column(name = "date")
