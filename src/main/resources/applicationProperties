@@ -5,7 +5,7 @@ spring.datasource.password=
 
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.show_sql=true
-spring.jpa.properties.hibernate.hbm2ddl.auto=update
+spring.jpa.properties.hibernate.hbm2ddl.auto=
 logging.level.org.hibernate.SQL=DEBUG
 
 

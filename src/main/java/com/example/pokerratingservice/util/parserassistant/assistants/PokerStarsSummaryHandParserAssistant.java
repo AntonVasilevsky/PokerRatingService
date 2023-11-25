@@ -4,7 +4,9 @@ import com.example.pokerratingservice.dto.HandDto;
 import com.example.pokerratingservice.dto.PlayerDto;
 import com.example.pokerratingservice.model.Hand;
 import com.example.pokerratingservice.model.Player;
+import com.example.pokerratingservice.model.PlayerNet;
 import com.example.pokerratingservice.service.HandService;
+import com.example.pokerratingservice.service.PlayerNetService;
 import com.example.pokerratingservice.service.PlayerService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.parserassistant.AssistantData;
@@ -21,8 +23,10 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
     private final PlayerService playerService;
 
     private final HandService handService;
+    private final PlayerNetService playerNetService;
 
-    public PokerStarsSummaryHandParserAssistant(PlayerService playerService, HandService handService) {
+    public PokerStarsSummaryHandParserAssistant(PlayerService playerService, HandService handService, PlayerNetService playerNetService) {
+        this.playerNetService = playerNetService;
         super.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SUMMARY);
         this.playerService = playerService;
         this.handService = handService;
@@ -40,6 +44,9 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
             setHandDtoFieldsWithBlocks(handDto, stringBuilderMap);
 
             assign(handDto, assistantData);
+
+            List<PlayerNet> playerNetList = assistantData.getPlayerNetDtoList().stream().map(playerNetService::convertDtoToPlayerNet).toList();
+            playerNetService.saveAll(playerNetList);
 
             System.out.println("Hand processing complete");
 

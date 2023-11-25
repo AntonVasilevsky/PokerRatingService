@@ -2,14 +2,14 @@ package com.example.pokerratingservice.util.parserassistant.assistants;
 
 import com.example.pokerratingservice.dto.HandDto;
 import com.example.pokerratingservice.dto.PlayerDto;
-import com.example.pokerratingservice.service.HandService;
-import com.example.pokerratingservice.service.PlayerService;
+import com.example.pokerratingservice.service.PlayerNetService;
 import com.example.pokerratingservice.util.enums.PokerStarsHandBlockName;
 import com.example.pokerratingservice.util.enums.PokerStarsKeywords;
 import com.example.pokerratingservice.util.handparser.HandParser;
 import com.example.pokerratingservice.util.parserassistant.AssistantData;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -18,8 +18,8 @@ import java.util.Map;
 
 public abstract class HandParserAssistant  {
     private PokerStarsHandBlockName pokerStarsBlockNameEnum;
-    private PlayerService playerService;
-    private HandService handService;
+    @Autowired
+    private PlayerNetService playerNetService;
 
     public void appendLineToStringBuilderFromMap(PokerStarsHandBlockName blockName, Map<PokerStarsHandBlockName, StringBuilder> stringBuilderMap, String line) {
         stringBuilderMap.get(blockName).append(line).append("\n");
@@ -52,6 +52,15 @@ public abstract class HandParserAssistant  {
         }
         processUncalledBet(line, assistantData);
         processWinner(line, assistantData);
+
+    }
+
+    private void processLoser(AssistantData assistantData) {
+        assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
+            if(!playerNetDto.isWon()) {
+                playerNetDto.setWonPerHand(playerNetDto.getVpip());
+            }
+        });
     }
 
     private void processUncalledBet(String line, AssistantData assistantData) {
@@ -87,9 +96,11 @@ public abstract class HandParserAssistant  {
             String winnerName = getWinnerName(line);
             assistantData.getPlayerNetDtoList().forEach(playerNetDto -> {
                 if(playerNetDto.getId().equals(winnerName)) {
+                    playerNetDto.setWon(true);
                     playerNetDto.setWonPerHand(totalPot + playerNetDto.getVpip());
                 }
             });
+            processLoser(assistantData);
         }
     }
 }

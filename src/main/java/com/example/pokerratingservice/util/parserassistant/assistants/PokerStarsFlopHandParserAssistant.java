@@ -15,6 +15,7 @@ public class PokerStarsFlopHandParserAssistant extends HandParserAssistant{
         appendLineToStringBuilderFromMap(getPokerStarsBlockNameEnum(), stringBuilderMap, line);
         processPersonNetDto(assistantData, line);
 
+
     }
 
 
