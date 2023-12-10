@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 public abstract class HandParser implements SiteSupporter{
     private PokerSiteName pokerSiteName;
     public static String getStringByRegex(String line, String regex, int matcherGroupIndex) {
+        if(line == null || regex == null || line.isBlank() || regex.isBlank())
+            throw new IllegalArgumentException("Line or regex should not be empty");
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
         matcher.find();
@@ -22,19 +24,15 @@ public abstract class HandParser implements SiteSupporter{
     }
 
     public static String getStringByRegex(String line, String regex) {
+        if(line == null || regex == null || line.isBlank() || regex.isBlank())
+            throw new IllegalArgumentException("Line or regex should not be blank");
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);
         matcher.find();
         return matcher.group();
     }
 
-    // abstract void parse(File file) throws IOException;
-    public abstract void parse(BufferedReader reader) throws IOException;
-
-
-
-   // abstract void readFiles(String path) throws IOException;
-
+    public abstract AssignedData parse(BufferedReader reader) throws IOException;
 
     abstract String getPlayerNameFromLine(String line);
 

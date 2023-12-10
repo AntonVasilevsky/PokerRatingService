@@ -26,4 +26,8 @@ public class PlayerNetService {
         playerNetRepository.save(playerNet);
     }
     public void saveAll(List<PlayerNet> playerNetList) {playerNetRepository.saveAll(playerNetList); }
+
+    public List<PlayerNet> getAllByName(String name) {
+        return playerNetRepository.findByName(name);
+    }
 }

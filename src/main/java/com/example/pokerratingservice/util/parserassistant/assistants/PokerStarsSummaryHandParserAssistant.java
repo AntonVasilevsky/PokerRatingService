@@ -27,7 +27,6 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
 
     public PokerStarsSummaryHandParserAssistant(PlayerService playerService, HandService handService, PlayerNetService playerNetService) {
         this.playerNetService = playerNetService;
-        super.setPokerStarsBlockNameEnum(PokerStarsHandBlockName.SUMMARY);
         this.playerService = playerService;
         this.handService = handService;
     }
@@ -43,7 +42,7 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
 
             setHandDtoFieldsWithBlocks(handDto, stringBuilderMap);
 
-            assign(handDto, assistantData);
+            assignHandToPlayers(handDto, assistantData);
 
             List<PlayerNet> playerNetList = assistantData.getPlayerNetDtoList().stream().map(playerNetService::convertDtoToPlayerNet).toList();
             playerNetService.saveAll(playerNetList);
@@ -53,6 +52,10 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         }
     }
 
+    @Override
+    public PokerStarsHandBlockName getPokerStarsBlockNameEnum() {
+        return PokerStarsHandBlockName.SUMMARY;
+    }
 
     private static void assignAndSave(Hand hand, List<Player> playerList, PlayerService playerService, HandService handService) {
         for (Player p : playerList
@@ -62,7 +65,7 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
         handService.saveOne(hand);
         playerService.saveAll(playerList);
     }
-    private void assign(HandDto handDto, AssistantData assistantData) {
+    private void assignHandToPlayers(HandDto handDto, AssistantData assistantData) {
 
         Set<Hand> handSetAssigned = assistantData.getHandSetAssigned();
         Set<Player> playerSetAssigned = assistantData.getPlayerSetAssigned();
@@ -83,7 +86,7 @@ public class PokerStarsSummaryHandParserAssistant extends HandParserAssistant{
                 }
 
             }
-            handSetAssigned.add(hand);  // сохранили связанные объекты в статику
+            handSetAssigned.add(hand);
         }
 
 

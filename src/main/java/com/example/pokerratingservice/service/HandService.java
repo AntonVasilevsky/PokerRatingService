@@ -20,4 +20,5 @@ public interface HandService {
     void saveAll(List<Hand> handList);
 
     List<Hand> getAllByName(String name);
+    List<Hand> getAllById(String id);
 }

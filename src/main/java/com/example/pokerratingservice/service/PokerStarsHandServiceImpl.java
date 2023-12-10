@@ -48,7 +48,11 @@ public class PokerStarsHandServiceImpl implements HandService {
     @Override
     public List<Hand> getAllByName(String name) {
 
+        return null;
+    }
 
+    @Override
+    public List<Hand> getAllById(String id) {
         return null;
     }
 }
